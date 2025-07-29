@@ -1,13 +1,14 @@
 {
   "files.autoSave": "onFocusChange",
   "foam.edit.linkReferenceDefinitions": "withExtensions",
+  "editor.formatOnSave": true,
   "[markdown]": {
     "editor.quickSuggestions": {
       "other": true,
       "comments": false,
       "strings": false
     },
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
   },
   "git.enableSmartCommit": true,
   "git.postCommitCommand": "sync",

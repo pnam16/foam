@@ -160,7 +160,7 @@ git push origin main
 - `Ctrl+-`: Quay lại
 - `Ctrl+Shift+F`: Tìm kiếm toàn bộ workspace
 
-### Phím tắt Foam:
+### Phím tắt Foam:~~~~
 - `Ctrl+Alt+V`: Dán ảnh
 - `Ctrl+Shift+P` + "Foam: Open Daily Note": Mở ghi chú hàng ngày
 - `Ctrl+Shift+P` + "Foam: Show Graph": Hiển thị biểu đồ
