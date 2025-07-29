@@ -1,5 +1,5 @@
 {
-  "files.autoSave": "onFocusChange",
+  "files.autoSave": "afterDelay",
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "editor.formatOnSave": true,
   "[markdown]": {
