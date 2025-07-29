@@ -6,7 +6,8 @@
       "other": true,
       "comments": false,
       "strings": false
-    }
+    },
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
   "git.enableSmartCommit": true,
   "git.postCommitCommand": "sync",
