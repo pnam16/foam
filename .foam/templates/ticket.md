@@ -68,4 +68,4 @@
   - {{date:YYYY-MM-DD}} - {{hours}}h - {{description}}
 
 ## 🏷️ Tags
-#ticket #{{workspace}} #{{project}} #{{type}}
+#ticket #{{workspace}} #{{project}} #{{version}}  #{{scope}} #{{type}}

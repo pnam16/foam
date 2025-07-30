@@ -10,6 +10,13 @@
 - **Created:** {{date:YYYY-MM-DD}}
 - **Resolve:** {{date:YYYY-MM-DD}}
 
+## ✅ Progress Tracking
+- [ ] **Planning** - Requirements gathered
+- [ ] **In Progress** - Development started
+- [ ] **Review** - Code review completed
+- [ ] **Testing** - Testing completed
+- [ ] **Done** - Ticket completed
+
 ## 🎯 Description
 <!-- Brief description of what needs to be done -->
 
