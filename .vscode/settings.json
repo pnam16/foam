@@ -13,7 +13,10 @@
   "git.enableSmartCommit": true,
   "git.postCommitCommand": "sync",
   "files.exclude": {
-    "_site/**": true
+    "_site/**": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
   },
   "files.insertFinalNewline": true,
   "markdown.styles": [
@@ -25,6 +28,5 @@
   },
   "gitdoc.ai.enabled": true,
   "gitdoc.timeZone": "Asia/Ho_Chi_Minh",
-  "markdown.preview.frontMatter": "hide",
-  "foam.graph.style": "hierarchy"
+  "foam.openDailyNote.directory": "daily",
 }
