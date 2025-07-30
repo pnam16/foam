@@ -1,7 +1,8 @@
-# Ticket #{{ticket_number}} - {{title}}
+# {{ticket_number}}
 
 ## 📋 Ticket Information
 - **Ticket ID:** #{{ticket_number}}
+- **Title:** #{{ticket_title}}
 - **Scope:** {{scope}}
 - **Project:** {{project}}
 - **Type:** {{type}}
