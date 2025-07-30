@@ -1,50 +1,18 @@
-# Prepare for Release - {{date:YYYY-MM-DD}}
+# Prepare for release
 
-## 📋 Release Information
-- **Version**:
-- **Release Date**: {{date:YYYY-MM-DD}}
-- **Release Type**: [Major/Minor/Patch]
+## 📋 Release information
+- **Version**: {{fileName}}
+- **Created at**: {{date:YYYY-MM-DD}}
+- **Released date**: {{date:YYYY-MM-DD}}
 - **Project**:
-- **Release Manager**:
 
-## 🎯 Pre-Release Checklist
-- [ ] Code review completed
-- [ ] All tests passing
-- [ ] Documentation updated
-- [ ] Changelog updated
-- [ ] Version numbers updated
-- [ ] Dependencies reviewed
-- [ ] Security scan completed
-- [ ] Performance testing done
-- [ ] User acceptance testing completed
-
-## 🔧 Database Changes
+## 🔧 Database changes
 ### SQL Scripts
 ```sql
 -- Add your SQL scripts here
 -- Example:
 -- UPDATE table_name SET column_name = value WHERE condition;
 ```
-
-### Migration Notes
-- **Migration Type**: [Schema/Data/Both]
-- **Rollback Plan**:
-- **Testing Required**:
-
-## 🚀 Deployment Steps
-1. **Environment**:
-2. **Deployment Method**:
-3. **Rollback Strategy**:
-4. **Monitoring Setup**:
-
-## 📊 Release Metrics
-- **Expected Impact**:
-- **Performance Baseline**:
-- **Success Criteria**:
-
-## 🐛 Known Issues
-- [ ]
-- [ ]
 
 ## 📝 Release Notes
 ### New Features
@@ -53,7 +21,7 @@
 ### Bug Fixes
 -
 
-### Breaking Changes
+### Breaking changes
 -
 
 ### Deprecations
