@@ -6,13 +6,7 @@
 - **Released date**: {{date:YYYY-MM-DD}}
 - **Project**: {{parrentFolderName}}
 
-## 🔧 Database changes
-### SQL Scripts
-```sql
--- Add your SQL scripts here
--- Example:
--- UPDATE table_name SET column_name = value WHERE condition;
-```
+### Ticket [{{ticket_number}}](../tickets/{{ticket_number}}.md)
 
 ## 📝 Release notes
 [Release notes](./release-notes.md)
