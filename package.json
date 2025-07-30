@@ -1,9 +1,15 @@
 {
   "name": "foam",
   "version": "1.0.0",
+  "type": "module",
   "description": "Welcome to my personal knowledge management system built with Foam! This vault serves as my digital brain for organizing thoughts, projects, and learning across multiple domains.",
   "scripts": {
-    "test": "node tools/index.js"
+    "test": "node tools/index.js",
+    "squash": "node tools/index.js",
+    "squash:preview": "node tools/index.js --preview",
+    "squash:interactive": "node tools/index.js --interactive",
+    "squash:detailed": "node tools/index.js --format detailed",
+    "squash:timestamp": "node tools/index.js --format timestamp"
   },
   "author": "",
   "license": "ISC"
