@@ -1,15 +1,16 @@
-# Git Daily Commit Squasher
+# Git Commit Squasher
 
-A Node.js tool to automatically squash daily git commits while preserving the original date of the first commit.
+A Node.js tool to automatically squash git commits while preserving the original date of the first commit. Can work with today's commits, all commits, or commits within a specific date range.
 
 ## Features
 
-- 🔍 **Find today's commits**: Automatically identifies all commits made today
+- 🔍 **Find commits**: Automatically identifies commits (today's, all, or date range)
 - 📅 **Preserve dates**: Maintains the original date of the first commit
 - 🎯 **Multiple formats**: Choose from different commit message formats
 - 👀 **Preview mode**: See what would be squashed before doing it
 - 🎮 **Interactive mode**: Review and choose options interactively
 - 🛡️ **Safe operations**: Uses soft reset to preserve your changes
+- 📊 **Flexible ranges**: Support for date ranges and commit limits
 
 ## Installation
 
@@ -23,8 +24,12 @@ The tool is already included in your Foam workspace. No additional installation 
 # Squash today's commits with default settings
 npm run squash
 
+# Squash all commits
+npm run squash:all
+
 # Or directly with node
 node tools/index.js
+node tools/index.js --all
 ```
 
 ### Preview Mode
@@ -33,8 +38,12 @@ node tools/index.js
 # See what would be squashed without actually doing it
 npm run squash:preview
 
+# Preview all commits
+npm run squash:preview:all
+
 # Or with the flag
 node tools/index.js --preview
+node tools/index.js --preview --all
 ```
 
 ### Interactive Mode
@@ -60,15 +69,32 @@ npm run squash:timestamp
 node tools/index.js --format custom --message "My custom squash message"
 ```
 
+### Date Range and Limits
+
+```bash
+# Squash commits from a specific date range
+node tools/index.js --since "2025-01-01" --until "2025-01-31"
+
+# Limit number of commits to squash
+node tools/index.js --limit 10
+
+# Combine options
+node tools/index.js --since "2025-01-01" --limit 5 --format detailed
+```
+
 ## Command Line Options
 
-| Option | Description | Example |
-|--------|-------------|---------|
-| `--help`, `-h` | Show help message | `node tools/index.js --help` |
-| `--preview`, `-p` | Preview without squashing | `node tools/index.js --preview` |
-| `--interactive`, `-i` | Interactive mode | `node tools/index.js --interactive` |
-| `--format <type>` | Commit message format | `node tools/index.js --format detailed` |
-| `--message <text>` | Custom commit message | `node tools/index.js --format custom --message "..."` |
+| Option                | Description                           | Example                                               |
+| --------------------- | ------------------------------------- | ----------------------------------------------------- |
+| `--help`, `-h`        | Show help message                     | `node tools/index.js --help`                          |
+| `--preview`, `-p`     | Preview without squashing             | `node tools/index.js --preview`                       |
+| `--interactive`, `-i` | Interactive mode                      | `node tools/index.js --interactive`                   |
+| `--format <type>`     | Commit message format                 | `node tools/index.js --format detailed`               |
+| `--message <text>`    | Custom commit message                 | `node tools/index.js --format custom --message "..."` |
+| `--all`               | Squash all commits (not just today's) | `node tools/index.js --all`                           |
+| `--since <date>`      | Start date for commit range           | `node tools/index.js --since "2025-01-01"`            |
+| `--until <date>`      | End date for commit range             | `node tools/index.js --until "2025-01-31"`            |
+| `--limit <number>`    | Limit number of commits               | `node tools/index.js --limit 10`                      |
 
 ## Commit Message Formats
 
@@ -98,7 +124,7 @@ Your custom message here
 
 ## How It Works
 
-1. **Find commits**: Uses `git log --since` to find all commits from today
+1. **Find commits**: Uses `git log` with optional filters to find commits (today's, all, or date range)
 2. **Get details**: Retrieves the first commit's date and author information
 3. **Soft reset**: Uses `git reset --soft` to preserve all changes
 4. **Create commit**: Creates a new commit with the preserved date using environment variables
@@ -116,7 +142,7 @@ Your custom message here
 ### Scenario 1: Multiple commits today
 ```bash
 $ npm run squash:preview
-📅 Preview: Would squash 3 commits from today:
+📅 Preview: Would squash 3 commits:
 
 1. a1b2c3d4 - Add new feature
 2. e5f6g7h8 - Fix bug in login
@@ -126,16 +152,30 @@ $ npm run squash:preview
 📝 Commit message would be: Daily commit squash - 3 commits
 ```
 
-### Scenario 2: No commits today
+### Scenario 2: All commits
 ```bash
-$ npm run squash
-No commits found for today.
+$ npm run squash:preview:all
+📅 Preview: Would squash 15 commits:
+
+1. a1b2c3d4 - Initial commit
+2. e5f6g7h8 - Add README
+3. i9j0k1l2 - Add features
+...
+
+📅 Preserved date would be: Mon Jan 20 09:15:00 2025 +0000
+📝 Commit message would be: Daily commit squash - 15 commits
 ```
 
-### Scenario 3: Only one commit today
+### Scenario 3: No commits today
 ```bash
 $ npm run squash
-Only one commit today, no squashing needed.
+No commits found.
+```
+
+### Scenario 4: Only one commit today
+```bash
+$ npm run squash
+Only one commit found, no squashing needed.
 ```
 
 ## Integration with Git Hooks
@@ -156,11 +196,21 @@ if [ "$COMMIT_COUNT" -gt 1 ]; then
 fi
 ```
 
+### Weekly squash hook example
+```bash
+#!/bin/bash
+# .git/hooks/pre-push
+
+# Squash all commits from the last week
+node tools/index.js --since "$(date -d '7 days ago' +%Y-%m-%d)" --until "$(date +%Y-%m-%d)" --format detailed
+```
+
 ## Troubleshooting
 
-### "No commits found for today"
-- Make sure you have commits with today's date
+### "No commits found"
+- Make sure you have commits in the specified range
 - Check your git log: `git log --oneline --since="$(date +%Y-%m-%d)"`
+- For all commits: `git log --oneline`
 
 ### "Error during squash"
 - Check your git status: `git status`
@@ -181,4 +231,4 @@ Feel free to enhance this tool by:
 
 ## License
 
-This tool is part of your Foam workspace and follows the same license. 
+This tool is part of your Foam workspace and follows the same license.

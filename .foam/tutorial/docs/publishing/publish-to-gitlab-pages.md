@@ -18,8 +18,8 @@ Change the remote to GitLab, or copy all the files into a new GitLab repo
 
 Add a .gatsby-config.js file where:
 
-* `$REPO_NAME` correspond to the name of your gtlab repo.
-* `$USER_NAME` correspond to your gitlab username.
+- `$REPO_NAME` correspond to the name of your gtlab repo.
+- `$USER_NAME` correspond to your gitlab username.
 
 ```js
 const path = require("path");
@@ -57,8 +57,7 @@ module.exports = {
             url: "https://gitlab.com/$USER_NAME/",
           },
         ],
-        editUrl:
-          "https://gitlab.com/$USER_NAME/$REPO_NAME/tree/main/",
+        editUrl: "https://gitlab.com/$USER_NAME/$REPO_NAME/tree/main/",
       },
     },
     {
@@ -89,7 +88,7 @@ module.exports = {
       options: {
         host: siteMetadata.siteUrl,
         sitemap: `${siteMetadata.siteUrl}/sitemap/sitemap-index.xml`,
-        policy: [{ userAgent: "*", allow: "/" }],
+        policy: [{userAgent: "*", allow: "/"}],
       },
     },
   ],
@@ -100,31 +99,31 @@ And a `package.json` file containing:
 
 ```json
 {
-    "private": true,
-    "name": "wiki",
-    "version": "1.0.0",
-    "license": "MIT",
-    "scripts": {
-        "develop": "gatsby develop -H 0.0.0.0",
-        "start": "gatsby develop -H 0.0.0.0",
-        "build": "gatsby build",
-        "clean": "gatsby clean",
-        "serve": "gatsby serve",
-        "test": "echo test"
-    },
-    "dependencies": {
-        "@primer/react": "^34.1.0",
-        "@primer/css": "^17.5.0",
-        "foam-cli": "^0.11.0",
-        "gatsby": "^3.12.0",
-        "gatsby-plugin-manifest": "^3.12.0",
-        "gatsby-plugin-robots-txt": "^1.6.9",
-        "gatsby-plugin-sitemap": "^5.4.0",
-        "gatsby-source-filesystem": "^3.12.0",
-        "gatsby-theme-primer-wiki": "^1.14.5",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2"
-    }
+  "private": true,
+  "name": "wiki",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop -H 0.0.0.0",
+    "start": "gatsby develop -H 0.0.0.0",
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "serve": "gatsby serve",
+    "test": "echo test"
+  },
+  "dependencies": {
+    "@primer/react": "^34.1.0",
+    "@primer/css": "^17.5.0",
+    "foam-cli": "^0.11.0",
+    "gatsby": "^3.12.0",
+    "gatsby-plugin-manifest": "^3.12.0",
+    "gatsby-plugin-robots-txt": "^1.6.9",
+    "gatsby-plugin-sitemap": "^5.4.0",
+    "gatsby-source-filesystem": "^3.12.0",
+    "gatsby-theme-primer-wiki": "^1.14.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
 ```
 
@@ -172,7 +171,7 @@ This pipeline will now serve your website on every push to the main branch of yo
 
 ## Publish with Jekyll
 
-### Add a _config.yaml
+### Add a \_config.yaml
 
 Add another file to the root directory (the one with `readme.md` in it) called `_config.yaml` (no extension)
 
@@ -186,8 +185,7 @@ plugins:
 optional_front_matter:
   remove_originals: true
 defaults:
-  -
-    scope:
+  - scope:
       path: "" # we need to add this to properly render layouts
     values:
       layout: "default"
@@ -218,7 +216,7 @@ Commit the file and push it to gitlab.
 
 ### Troubleshooting
 
-- *Could not locate Gemfile* - You didn't follow the steps above to [Add a Gemlock file](#add-a-gemlock-file)
-- *Conversion error: Jekyll::Converters::Scss encountered an error while converting* You need to reference a theme.
-- *Pages are running in CI/CD, but I only ever see `test`, and never deploy* - Perhaps you've renamed the main branch (from master) - check the settings in `.gitlab-ci.yml` and ensure the deploy command is running to the branch you expect it to.
-- *I deployed, but my .msd files don't seem to be being converted into .html files* - You need a gem that GitHub installs by default - check `gem "jekyll-optional-front-matter"` appears in the `Gemfile`
+- _Could not locate Gemfile_ - You didn't follow the steps above to [Add a Gemlock file](#add-a-gemlock-file)
+- _Conversion error: Jekyll::Converters::Scss encountered an error while converting_ You need to reference a theme.
+- _Pages are running in CI/CD, but I only ever see `test`, and never deploy_ - Perhaps you've renamed the main branch (from master) - check the settings in `.gitlab-ci.yml` and ensure the deploy command is running to the branch you expect it to.
+- _I deployed, but my .msd files don't seem to be being converted into .html files_ - You need a gem that GitHub installs by default - check `gem "jekyll-optional-front-matter"` appears in the `Gemfile`

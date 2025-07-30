@@ -1,266 +1,314 @@
 #!/usr/bin/env node
 
-const { execSync, spawn } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import {execSync, spawn} from "child_process";
+import fs from "fs";
+import path from "path";
 
-class GitCommitSquasher {
-  constructor() {
-    this.repoPath = process.cwd();
-  }
+const repoPath = process.cwd();
 
-  /**
-   * Get all commits from today
-   */
-  getTodayCommits() {
-    try {
-      const today = new Date().toISOString().split('T')[0];
-      const command = `git log --oneline --since="${today} 00:00:00" --until="${today} 23:59:59" --format="%H %s"`;
-      const output = execSync(command, { cwd: this.repoPath, encoding: 'utf8' });
-      
-      if (!output.trim()) {
-        console.log('No commits found for today.');
-        return [];
-      }
+/**
+ * Get all commits (or commits from a specific date range)
+ */
+const getAllCommits = (options = {}) => {
+  try {
+    const {since, until, limit} = options;
+    let command = 'git log --oneline --format="%H %s"';
 
-      return output.trim().split('\n').map(line => {
-        const [hash, ...messageParts] = line.split(' ');
-        return {
-          hash: hash,
-          message: messageParts.join(' ')
-        };
-      });
-    } catch (error) {
-      console.error('Error getting today\'s commits:', error.message);
+    if (since) {
+      command += ` --since="${since}"`;
+    }
+
+    if (until) {
+      command += ` --until="${until}"`;
+    }
+
+    if (limit) {
+      command += ` -n ${limit}`;
+    }
+
+    const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
+
+    if (!output.trim()) {
+      console.log("No commits found.");
       return [];
     }
-  }
 
-  /**
-   * Get commit details including date
-   */
-  getCommitDetails(hash) {
-    try {
-      const command = `git show --format="%H%n%an%n%ae%n%ad%n%s%n%b" --no-patch ${hash}`;
-      const output = execSync(command, { cwd: this.repoPath, encoding: 'utf8' });
-      const lines = output.trim().split('\n');
-      
-      return {
-        hash: lines[0],
-        author: lines[1],
-        email: lines[2],
-        date: lines[3],
-        subject: lines[4],
-        body: lines.slice(5).join('\n')
-      };
-    } catch (error) {
-      console.error(`Error getting commit details for ${hash}:`, error.message);
-      return null;
-    }
-  }
-
-  /**
-   * Create a squash commit with preserved date
-   */
-  createSquashCommit(commits, options = {}) {
-    if (commits.length === 0) {
-      console.log('No commits to squash.');
-      return;
-    }
-
-    if (commits.length === 1) {
-      console.log('Only one commit today, no squashing needed.');
-      return;
-    }
-
-    const firstCommit = this.getCommitDetails(commits[0].hash);
-    if (!firstCommit) {
-      console.error('Could not get details of first commit.');
-      return;
-    }
-
-    // Create commit message
-    const commitMessage = this.generateCommitMessage(commits, options);
-    
-    // Reset to the commit before today's commits
-    const resetTarget = this.getResetTarget(commits);
-    
-    try {
-      // Soft reset to preserve changes
-      execSync(`git reset --soft ${resetTarget}`, { cwd: this.repoPath });
-      
-      // Create new commit with preserved date
-      const env = {
-        ...process.env,
-        GIT_AUTHOR_DATE: firstCommit.date,
-        GIT_COMMITTER_DATE: firstCommit.date
-      };
-
-      execSync(`git commit -m "${commitMessage}"`, { 
-        cwd: this.repoPath, 
-        env,
-        stdio: 'inherit'
+    return output
+      .trim()
+      .split("\n")
+      .map((line) => {
+        const [hash, ...messageParts] = line.split(" ");
+        return {
+          hash: hash,
+          message: messageParts.join(" "),
+        };
       });
+  } catch (error) {
+    console.error("Error getting commits:", error.message);
+    return [];
+  }
+};
 
-      console.log(`✅ Successfully squashed ${commits.length} commits into one with preserved date: ${firstCommit.date}`);
-      console.log(`📝 Commit message: ${commitMessage}`);
-      
-    } catch (error) {
-      console.error('Error during squash:', error.message);
-      console.log('You may need to manually resolve conflicts or check your git status.');
-    }
+/**
+ * Get all commits from today (for backward compatibility)
+ */
+const getTodayCommits = () => {
+  const today = new Date().toISOString().split("T")[0];
+  return getAllCommits({
+    since: `${today} 00:00:00`,
+    until: `${today} 23:59:59`,
+  });
+};
+
+/**
+ * Get commit details including date
+ */
+const getCommitDetails = (hash) => {
+  try {
+    const command = `git show --format="%H%n%an%n%ae%n%ad%n%s%n%b" --no-patch ${hash}`;
+    const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
+    const lines = output.trim().split("\n");
+
+    return {
+      hash: lines[0],
+      author: lines[1],
+      email: lines[2],
+      date: lines[3],
+      subject: lines[4],
+      body: lines.slice(5).join("\n"),
+    };
+  } catch (error) {
+    console.error(`Error getting commit details for ${hash}:`, error.message);
+    return null;
+  }
+};
+
+/**
+ * Get the commit hash to reset to (before today's commits)
+ */
+const getResetTarget = (commits) => {
+  try {
+    const lastCommitHash = commits[commits.length - 1].hash;
+    const command = `git rev-parse ${lastCommitHash}^`;
+    return execSync(command, {cwd: repoPath, encoding: "utf8"}).trim();
+  } catch (error) {
+    console.error("Error getting reset target:", error.message);
+    return "HEAD~" + commits.length;
+  }
+};
+
+/**
+ * Generate commit message based on squashed commits
+ */
+const generateCommitMessage = (commits, options = {}) => {
+  const {format = "summary"} = options;
+
+  switch (format) {
+    case "summary":
+      return `Daily commit squash - ${commits.length} commits`;
+
+    case "detailed":
+      const messages = commits.map((c) => `- ${c.message}`).join("\n");
+      return `Daily commit squash - ${commits.length} commits:\n\n${messages}`;
+
+    case "timestamp":
+      const today = new Date().toISOString().split("T")[0];
+      return `Daily commit squash - ${today} (${commits.length} commits)`;
+
+    case "custom":
+      return (
+        options.customMessage ||
+        `Daily commit squash - ${commits.length} commits`
+      );
+
+    default:
+      return `Daily commit squash - ${commits.length} commits`;
+  }
+};
+
+/**
+ * Create a squash commit with preserved date
+ */
+const createSquashCommit = (commits, options = {}) => {
+  if (commits.length === 0) {
+    console.log("No commits to squash.");
+    return;
   }
 
-  /**
-   * Get the commit hash to reset to (before today's commits)
-   */
-  getResetTarget(commits) {
-    try {
-      const lastCommitHash = commits[commits.length - 1].hash;
-      const command = `git rev-parse ${lastCommitHash}^`;
-      return execSync(command, { cwd: this.repoPath, encoding: 'utf8' }).trim();
-    } catch (error) {
-      console.error('Error getting reset target:', error.message);
-      return 'HEAD~' + commits.length;
-    }
+  if (commits.length === 1) {
+    console.log("Only one commit found, no squashing needed.");
+    return;
   }
 
-  /**
-   * Generate commit message based on squashed commits
-   */
-  generateCommitMessage(commits, options = {}) {
-    const { format = 'summary' } = options;
-    
-    switch (format) {
-      case 'summary':
-        return `Daily commit squash - ${commits.length} commits`;
-      
-      case 'detailed':
-        const messages = commits.map(c => `- ${c.message}`).join('\n');
-        return `Daily commit squash - ${commits.length} commits:\n\n${messages}`;
-      
-      case 'timestamp':
-        const today = new Date().toISOString().split('T')[0];
-        return `Daily commit squash - ${today} (${commits.length} commits)`;
-      
-      case 'custom':
-        return options.customMessage || `Daily commit squash - ${commits.length} commits`;
-      
-      default:
-        return `Daily commit squash - ${commits.length} commits`;
-    }
+  const firstCommit = getCommitDetails(commits[0].hash);
+  if (!firstCommit) {
+    console.error("Could not get details of first commit.");
+    return;
   }
 
-  /**
-   * Interactive mode for reviewing commits before squashing
-   */
-  async interactiveSquash() {
-    const commits = this.getTodayCommits();
-    
-    if (commits.length === 0) {
-      console.log('No commits found for today.');
-      return;
-    }
+  // Create commit message
+  const commitMessage = generateCommitMessage(commits, options);
 
-    console.log(`\n📅 Found ${commits.length} commits from today:\n`);
-    commits.forEach((commit, index) => {
-      console.log(`${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`);
+  // Reset to the commit before today's commits
+  const resetTarget = getResetTarget(commits);
+
+  try {
+    // Soft reset to preserve changes
+    execSync(`git reset --soft ${resetTarget}`, {cwd: repoPath});
+
+    // Create new commit with preserved date
+    const env = {
+      ...process.env,
+      GIT_AUTHOR_DATE: firstCommit.date,
+      GIT_COMMITTER_DATE: firstCommit.date,
+    };
+
+    execSync(`git commit -m "${commitMessage}"`, {
+      cwd: repoPath,
+      env,
+      stdio: "inherit",
     });
 
-    console.log('\nOptions:');
-    console.log('1. Squash all commits');
-    console.log('2. Squash with detailed message');
-    console.log('3. Squash with timestamp');
-    console.log('4. Custom message');
-    console.log('5. Cancel');
+    console.log(
+      `✅ Successfully squashed ${commits.length} commits into one with preserved date: ${firstCommit.date}`,
+    );
+    console.log(`📝 Commit message: ${commitMessage}`);
+  } catch (error) {
+    console.error("Error during squash:", error.message);
+    console.log(
+      "You may need to manually resolve conflicts or check your git status.",
+    );
+  }
+};
 
-    // For simplicity, we'll use a basic prompt
-    // In a real implementation, you might want to use a proper CLI library
-    console.log('\nEnter your choice (1-5):');
-    
-    // This is a simplified version - in practice you'd use readline or a CLI library
-    return new Promise((resolve) => {
-      process.stdin.once('data', (data) => {
-        const choice = data.toString().trim();
-        resolve({ choice, commits });
-      });
-    });
+/**
+ * Interactive mode for reviewing commits before squashing
+ */
+const interactiveSquash = async (options = {}) => {
+  const commits = getAllCommits(options);
+
+  if (commits.length === 0) {
+    console.log("No commits found.");
+    return;
   }
 
-  /**
-   * Main execution method
-   */
-  async run(options = {}) {
-    const { interactive = false, format = 'summary', customMessage = '' } = options;
+  console.log(`\n📅 Found ${commits.length} commits:\n`);
+  commits.forEach((commit, index) => {
+    console.log(
+      `${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`,
+    );
+  });
 
-    if (interactive) {
-      const result = await this.interactiveSquash();
-      if (!result) return;
-      
-      const { choice, commits } = result;
-      
-      switch (choice) {
-        case '1':
-          this.createSquashCommit(commits, { format: 'summary' });
-          break;
-        case '2':
-          this.createSquashCommit(commits, { format: 'detailed' });
-          break;
-        case '3':
-          this.createSquashCommit(commits, { format: 'timestamp' });
-          break;
-        case '4':
-          console.log('Enter custom message:');
-          process.stdin.once('data', (data) => {
-            const message = data.toString().trim();
-            this.createSquashCommit(commits, { format: 'custom', customMessage: message });
+  console.log("\nOptions:");
+  console.log("1. Squash all commits");
+  console.log("2. Squash with detailed message");
+  console.log("3. Squash with timestamp");
+  console.log("4. Custom message");
+  console.log("5. Cancel");
+
+  // For simplicity, we'll use a basic prompt
+  // In a real implementation, you might want to use a proper CLI library
+  console.log("\nEnter your choice (1-5):");
+
+  // This is a simplified version - in practice you'd use readline or a CLI library
+  return new Promise((resolve) => {
+    process.stdin.once("data", (data) => {
+      const choice = data.toString().trim();
+      resolve({choice, commits});
+    });
+  });
+};
+
+/**
+ * Preview what would be squashed without actually doing it
+ */
+const preview = (options = {}) => {
+  const {since, until, limit, all = false} = options;
+  const commits = all
+    ? getAllCommits({since, until, limit})
+    : getTodayCommits();
+
+  if (commits.length === 0) {
+    console.log("No commits found.");
+    return;
+  }
+
+  console.log(`\n📅 Preview: Would squash ${commits.length} commits:\n`);
+  commits.forEach((commit, index) => {
+    console.log(
+      `${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`,
+    );
+  });
+
+  const firstCommit = getCommitDetails(commits[0].hash);
+  if (firstCommit) {
+    console.log(`\n📅 Preserved date would be: ${firstCommit.date}`);
+  }
+
+  const message = generateCommitMessage(commits);
+  console.log(`📝 Commit message would be: ${message}`);
+};
+
+/**
+ * Main execution method
+ */
+const run = async (options = {}) => {
+  const {
+    interactive = false,
+    format = "summary",
+    customMessage = "",
+    since,
+    until,
+    limit,
+    all = false,
+  } = options;
+
+  const commitOptions = {since, until, limit};
+
+  if (interactive) {
+    const result = await interactiveSquash(commitOptions);
+    if (!result) return;
+
+    const {choice, commits} = result;
+
+    switch (choice) {
+      case "1":
+        createSquashCommit(commits, {format: "summary"});
+        break;
+      case "2":
+        createSquashCommit(commits, {format: "detailed"});
+        break;
+      case "3":
+        createSquashCommit(commits, {format: "timestamp"});
+        break;
+      case "4":
+        console.log("Enter custom message:");
+        process.stdin.once("data", (data) => {
+          const message = data.toString().trim();
+          createSquashCommit(commits, {
+            format: "custom",
+            customMessage: message,
           });
-          break;
-        case '5':
-          console.log('Operation cancelled.');
-          break;
-        default:
-          console.log('Invalid choice.');
-      }
-    } else {
-      const commits = this.getTodayCommits();
-      this.createSquashCommit(commits, { format, customMessage });
+        });
+        break;
+      case "5":
+        console.log("Operation cancelled.");
+        break;
+      default:
+        console.log("Invalid choice.");
     }
+  } else {
+    const commits = all ? getAllCommits(commitOptions) : getTodayCommits();
+    createSquashCommit(commits, {format, customMessage});
   }
-
-  /**
-   * Preview what would be squashed without actually doing it
-   */
-  preview() {
-    const commits = this.getTodayCommits();
-    
-    if (commits.length === 0) {
-      console.log('No commits found for today.');
-      return;
-    }
-
-    console.log(`\n📅 Preview: Would squash ${commits.length} commits from today:\n`);
-    commits.forEach((commit, index) => {
-      console.log(`${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`);
-    });
-
-    const firstCommit = this.getCommitDetails(commits[0].hash);
-    if (firstCommit) {
-      console.log(`\n📅 Preserved date would be: ${firstCommit.date}`);
-    }
-
-    const message = this.generateCommitMessage(commits);
-    console.log(`📝 Commit message would be: ${message}`);
-  }
-}
+};
 
 // CLI interface
-function main() {
+const main = () => {
   const args = process.argv.slice(2);
-  const squasher = new GitCommitSquasher();
 
   const help = `
-Git Daily Commit Squasher
+Git Commit Squasher
 
 Usage: node tools/index.js [options]
 
@@ -270,49 +318,104 @@ Options:
   --interactive, -i   Interactive mode
   --format <type>     Commit message format (summary, detailed, timestamp, custom)
   --message <text>    Custom commit message (use with --format custom)
+  --all               Squash all commits (not just today's)
+  --since <date>      Start date for commit range (e.g., "2025-01-01")
+  --until <date>      End date for commit range (e.g., "2025-01-31")
+  --limit <number>    Limit number of commits to squash
 
 Examples:
-  node tools/index.js                    # Squash with default settings
+  node tools/index.js                    # Squash today's commits with default settings
+  node tools/index.js --all              # Squash all commits
   node tools/index.js --preview          # Preview without squashing
+  node tools/index.js --preview --all    # Preview all commits
   node tools/index.js --interactive      # Interactive mode
   node tools/index.js --format detailed  # Squash with detailed message
+  node tools/index.js --since "2025-01-01" --until "2025-01-31"  # Date range
+  node tools/index.js --limit 10         # Limit to 10 commits
   node tools/index.js --format custom --message "My custom message"
 `;
 
-  if (args.includes('--help') || args.includes('-h')) {
+  if (args.includes("--help") || args.includes("-h")) {
     console.log(help);
     return;
   }
 
-  if (args.includes('--preview') || args.includes('-p')) {
-    squasher.preview();
+  if (args.includes("--preview") || args.includes("-p")) {
+    const previewOptions = {};
+
+    // Parse preview options
+    if (args.includes("--all")) previewOptions.all = true;
+
+    const sinceIndex = args.indexOf("--since");
+    if (sinceIndex !== -1 && args[sinceIndex + 1]) {
+      previewOptions.since = args[sinceIndex + 1];
+    }
+
+    const untilIndex = args.indexOf("--until");
+    if (untilIndex !== -1 && args[untilIndex + 1]) {
+      previewOptions.until = args[untilIndex + 1];
+    }
+
+    const limitIndex = args.indexOf("--limit");
+    if (limitIndex !== -1 && args[limitIndex + 1]) {
+      previewOptions.limit = parseInt(args[limitIndex + 1]);
+    }
+
+    preview(previewOptions);
     return;
   }
 
   const options = {
-    interactive: args.includes('--interactive') || args.includes('-i'),
-    format: 'summary'
+    interactive: args.includes("--interactive") || args.includes("-i"),
+    format: "summary",
+    all: args.includes("--all"),
   };
 
   // Parse format option
-  const formatIndex = args.indexOf('--format');
+  const formatIndex = args.indexOf("--format");
   if (formatIndex !== -1 && args[formatIndex + 1]) {
     options.format = args[formatIndex + 1];
   }
 
   // Parse custom message
-  const messageIndex = args.indexOf('--message');
+  const messageIndex = args.indexOf("--message");
   if (messageIndex !== -1 && args[messageIndex + 1]) {
     options.customMessage = args[messageIndex + 1];
   }
 
-  squasher.run(options);
-}
+  // Parse date range options
+  const sinceIndex = args.indexOf("--since");
+  if (sinceIndex !== -1 && args[sinceIndex + 1]) {
+    options.since = args[sinceIndex + 1];
+  }
+
+  const untilIndex = args.indexOf("--until");
+  if (untilIndex !== -1 && args[untilIndex + 1]) {
+    options.until = args[untilIndex + 1];
+  }
+
+  const limitIndex = args.indexOf("--limit");
+  if (limitIndex !== -1 && args[limitIndex + 1]) {
+    options.limit = parseInt(args[limitIndex + 1]);
+  }
+
+  run(options);
+};
 
 // Export for use as module
-module.exports = GitCommitSquasher;
+export {
+  getAllCommits,
+  getTodayCommits,
+  getCommitDetails,
+  getResetTarget,
+  generateCommitMessage,
+  createSquashCommit,
+  interactiveSquash,
+  preview,
+  run,
+};
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }

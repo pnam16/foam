@@ -4,13 +4,18 @@
   "type": "module",
   "description": "Welcome to my personal knowledge management system built with Foam! This vault serves as my digital brain for organizing thoughts, projects, and learning across multiple domains.",
   "scripts": {
-    "test": "node tools/index.js",
+    "format": "prettier --write .",
     "squash": "node tools/index.js",
+    "squash:all": "node tools/index.js --all",
     "squash:preview": "node tools/index.js --preview",
+    "squash:preview:all": "node tools/index.js --preview --all",
     "squash:interactive": "node tools/index.js --interactive",
     "squash:detailed": "node tools/index.js --format detailed",
     "squash:timestamp": "node tools/index.js --format timestamp"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
 }

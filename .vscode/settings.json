@@ -8,7 +8,7 @@
       "comments": false,
       "strings": false
     },
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "git.enableSmartCommit": true,
   "git.postCommitCommand": "sync",
@@ -22,7 +22,7 @@
   "markdown.styles": [
     ".vscode/custom-tag-style.css"
   ],
-  "gitdoc.enabled": true,
+  "gitdoc.enabled": false,
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
