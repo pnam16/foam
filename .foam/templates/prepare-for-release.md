@@ -6,7 +6,7 @@
 - **Released date**: {{date:YYYY-MM-DD}}
 - **Project**: {{parrentFolderName}}
 
-### Ticket [{{ticket_number}}](../tickets/{{ticket_number}}.md)
+### [Ticket {{ticket_number}}](../tickets/{{ticket_number}}.md)
 
 ## 📝 Release notes
 [Release notes](./release-notes.md)
