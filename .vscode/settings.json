@@ -25,4 +25,6 @@
   },
   "gitdoc.ai.enabled": true,
   "gitdoc.timeZone": "Asia/Ho_Chi_Minh",
+  "markdown.preview.frontMatter": "hide",
+  "foam.graph.style": "hierarchy"
 }
