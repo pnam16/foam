@@ -5,7 +5,8 @@
 - **Type:** {{type}}
 - **Project:** {{project}}
 - **Parrent:** {{parrent_ticket}}
-- **Tarhey version:** {{parrent_ticket}}
+- **Target version:** {{version}}
+- **Scope:** {{scope}}
 - **Created:** {{date:YYYY-MM-DD}}
 - **Resolve:** {{date:YYYY-MM-DD}}
 
