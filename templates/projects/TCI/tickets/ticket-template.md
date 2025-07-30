@@ -2,12 +2,10 @@
 
 ## 📋 Ticket Information
 - **Ticket ID:** #{{ticket_number}}
-- **Status:** {{status}}
-- **Priority:** {{priority}}
 - **Type:** {{type}}
-- **Assignee:** {{assignee}}
 - **Created:** {{date:YYYY-MM-DD}}
-- **Due Date:** {{due_date}}
+- **Resolve:** {{date:YYYY-MM-DD}}
+- **Project:** {{project}}
 - **Project:** {{project}}
 
 ## 🎯 Description
@@ -31,11 +29,6 @@
 - **Dependencies:**
 - **API Endpoints:**
 - **Database Changes:**
-
-## 📁 Files to Modify
-<!-- List of files that need to be created or modified -->
-- [ ] `path/to/file1`
-- [ ] `path/to/file2`
 
 ## 🧪 Testing Requirements
 <!-- Testing scenarios and requirements -->
