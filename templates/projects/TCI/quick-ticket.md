@@ -1,10 +1,12 @@
 # Ticket #{{ticket_number}} - {{title}}
 
 ## 📋 Quick Info
-- **Status:** {{status}}
-- **Priority:** {{priority}}
-- **Assignee:** {{assignee}}
+- **Ticket ID:** #{{ticket_number}}
+- **Type:** {{type}}
 - **Created:** {{date:YYYY-MM-DD}}
+- **Resolve:** {{date:YYYY-MM-DD}}
+- **Project:** {{project}}
+- **Parrent:** {{parrent_ticket}}
 
 ## 🎯 Description
 <!-- Brief description of what needs to be done -->
@@ -21,5 +23,5 @@
 <!-- Links to related tickets or notes -->
 - [[related-ticket]]
 
----
-*Created with Foam*
+## 🏷️ Tags
+#ticket #{{workspace}} #{{project}} #{{type}}
