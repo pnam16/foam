@@ -6,7 +6,7 @@
 - **Created:** {{date:YYYY-MM-DD}}
 - **Resolve:** {{date:YYYY-MM-DD}}
 - **Project:** {{project}}
-- **Project:** {{project}}
+- **Parrent:** {{parrent_ticket}}
 
 ## 🎯 Description
 <!-- Brief description of the ticket -->
@@ -66,7 +66,4 @@
   - {{date:YYYY-MM-DD}} - {{hours}}h - {{description}}
 
 ## 🏷️ Tags
-#ticket #{{project}} #{{type}} #{{priority}}
-
----
-*Created with Foam*
+#ticket #{{workspace}} #{{project}} #{{type}}
