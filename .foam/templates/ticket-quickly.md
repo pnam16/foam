@@ -2,12 +2,12 @@
 
 ## 📋 Quick Info
 - **Ticket ID:** #{{ticket_number}}
+- **Scope:** {{scope}}
 - **Project:** {{project}}
 - **Type:** {{type}}
 - **Category:** {{category}}
 - **Parrent:** {{parrent_ticket}}
 - **Target version:** {{version}}
-- **Scope:** {{scope}}
 - **Created:** {{date:YYYY-MM-DD}}
 - **Resolve:** {{date:YYYY-MM-DD}}
 
