@@ -1,0 +1,10 @@
+{
+  "name": "foam",
+  "version": "1.0.0",
+  "description": "Welcome to my personal knowledge management system built with Foam! This vault serves as my digital brain for organizing thoughts, projects, and learning across multiple domains.",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
