@@ -3,10 +3,11 @@
 ## 📋 Ticket Information
 - **Ticket ID:** #{{ticket_number}}
 - **Type:** {{type}}
-- **Created:** {{date:YYYY-MM-DD}}
-- **Resolve:** {{date:YYYY-MM-DD}}
 - **Project:** {{project}}
 - **Parrent:** {{parrent_ticket}}
+- **Tarhey version:** {{parrent_ticket}}
+- **Created:** {{date:YYYY-MM-DD}}
+- **Resolve:** {{date:YYYY-MM-DD}}
 
 ## 🎯 Description
 <!-- Brief description of the ticket -->
