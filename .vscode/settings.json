@@ -28,6 +28,5 @@
   },
   "gitdoc.ai.enabled": true,
   "gitdoc.timeZone": "Asia/Ho_Chi_Minh",
-  "foam.openDailyNote.directory": "daily",
-  "foam.templates.directory": "templates"
+  "foam.openDailyNote.directory": "daily"
 }
