@@ -2,8 +2,9 @@
 
 ## 📋 Quick Info
 - **Ticket ID:** #{{ticket_number}}
-- **Type:** {{type}}
 - **Project:** {{project}}
+- **Type:** {{type}}
+- **Category:** {{category}}
 - **Parrent:** {{parrent_ticket}}
 - **Target version:** {{version}}
 - **Scope:** {{scope}}
@@ -33,4 +34,4 @@
 - [[related-ticket]]
 
 ## 🏷️ Tags
-#ticket #{{workspace}} #{{project}} #{{version}}  #{{scope}} #{{type}}
+#ticket #{{workspace}} #{{project}} #{{version}} #{{scope}} #{{category}} #{{type}}
