@@ -7,11 +7,7 @@
     "format": "prettier --write .",
     "squash": "node tools/index.js",
     "squash:all": "node tools/index.js --all",
-    "squash:preview": "node tools/index.js --preview",
-    "squash:preview:all": "node tools/index.js --preview --all",
-    "squash:interactive": "node tools/index.js --interactive",
-    "squash:detailed": "node tools/index.js --format detailed",
-    "squash:timestamp": "node tools/index.js --format timestamp"
+    "squash:preview:all": "node tools/index.js --preview --all"
   },
   "author": "",
   "license": "ISC",
