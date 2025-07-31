@@ -34,6 +34,54 @@ const getAllCommits = () => {
 };
 
 /**
+ * Get all unique dates from commits
+ */
+const getCommitDates = () => {
+  try {
+    const command = 'git --no-pager log --format="%ad" --date=short';
+    const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
+
+    if (!output.trim()) {
+      return [];
+    }
+
+    const dates = output.trim().split("\n");
+    return [...new Set(dates)].sort().reverse(); // Remove duplicates and sort newest first
+  } catch (error) {
+    console.error("Error getting commit dates:", error.message);
+    return [];
+  }
+};
+
+/**
+ * Get commits from a specific date
+ */
+const getCommitsByDate = (date) => {
+  try {
+    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 00:00:00" --until="${date} 23:59:59"`;
+    const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
+
+    if (!output.trim()) {
+      return [];
+    }
+
+    return output
+      .trim()
+      .split("\n")
+      .map((line) => {
+        const [hash, ...messageParts] = line.split(" ");
+        return {
+          hash: hash,
+          message: messageParts.join(" "),
+        };
+      });
+  } catch (error) {
+    console.error("Error getting commits for date:", error.message);
+    return [];
+  }
+};
+
+/**
  * Get commit details including date
  */
 const getCommitDetails = (hash) => {
@@ -57,7 +105,7 @@ const getCommitDetails = (hash) => {
 };
 
 /**
- * Get the commit hash to reset to (before all commits)
+ * Get the commit hash to reset to (before the specified commits)
  */
 const getResetTarget = (commits) => {
   try {
@@ -73,14 +121,17 @@ const getResetTarget = (commits) => {
 /**
  * Generate commit message for squashed commits
  */
-const generateCommitMessage = (commits) => {
+const generateCommitMessage = (commits, date = null) => {
+  if (date) {
+    return `Daily commit squash - ${date} (${commits.length} commits)`;
+  }
   return `Squash all commits - ${commits.length} commits`;
 };
 
 /**
  * Create a squash commit with preserved date
  */
-const createSquashCommit = (commits) => {
+const createSquashCommit = (commits, date = null) => {
   if (commits.length === 0) {
     console.log("No commits to squash.");
     return;
@@ -98,9 +149,9 @@ const createSquashCommit = (commits) => {
   }
 
   // Create commit message
-  const commitMessage = generateCommitMessage(commits);
+  const commitMessage = generateCommitMessage(commits, date);
 
-  // Reset to the commit before all commits
+  // Reset to the commit before the specified commits
   const resetTarget = getResetTarget(commits);
 
   try {
@@ -160,12 +211,92 @@ const preview = () => {
 };
 
 /**
+ * Squash commits for each day
+ */
+const squashDaily = () => {
+  const dates = getCommitDates();
+
+  if (dates.length === 0) {
+    console.log("No commits found.");
+    return;
+  }
+
+  console.log(`Found commits from ${dates.length} different days:\n`);
+  dates.forEach((date, index) => {
+    const commits = getCommitsByDate(date);
+    console.log(`${index + 1}. ${date}: ${commits.length} commits`);
+  });
+
+  console.log("\nStarting daily squash process...\n");
+
+  // Process dates in reverse order (oldest first) to avoid conflicts
+  const sortedDates = [...dates].sort();
+
+  for (const date of sortedDates) {
+    const commits = getCommitsByDate(date);
+    if (commits.length > 1) {
+      console.log(`\n🔄 Processing ${date} (${commits.length} commits)...`);
+      createSquashCommit(commits, date);
+    } else if (commits.length === 1) {
+      console.log(
+        `\n⏭️  Skipping ${date} (only 1 commit, no squashing needed)`,
+      );
+    } else {
+      console.log(`\n⏭️  Skipping ${date} (no commits)`);
+    }
+  }
+
+  console.log("\n✅ Daily squash process completed!");
+};
+
+/**
+ * Preview daily squash
+ */
+const previewDaily = () => {
+  const dates = getCommitDates();
+
+  if (dates.length === 0) {
+    console.log("No commits found.");
+    return;
+  }
+
+  console.log(`Found commits from ${dates.length} different days:\n`);
+
+  // Process dates in reverse order (oldest first)
+  const sortedDates = [...dates].sort();
+
+  for (const date of sortedDates) {
+    const commits = getCommitsByDate(date);
+    if (commits.length > 1) {
+      console.log(`\n📅 ${date}: ${commits.length} commits would be squashed`);
+      commits.forEach((commit, index) => {
+        console.log(
+          `   ${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`,
+        );
+      });
+      const message = generateCommitMessage(commits, date);
+      console.log(`   📝 Message: ${message}`);
+    } else if (commits.length === 1) {
+      console.log(`\n📅 ${date}: 1 commit (no squashing needed)`);
+    } else {
+      console.log(`\n📅 ${date}: no commits`);
+    }
+  }
+};
+
+/**
  * Main execution method
  */
 const run = (options = {}) => {
-  const {preview: isPreview = false} = options;
+  const {preview: isPreview = false, daily = false} = options;
 
-  if (isPreview) {
+  if (daily) {
+    if (isPreview) {
+      previewDaily();
+    } else {
+      squashDaily();
+    }
+  } else if (isPreview) {
     preview();
   } else {
     const commits = getAllCommits();
@@ -186,10 +317,13 @@ Options:
   --help, -h          Show this help message
   --preview, -p       Preview what would be squashed
   --all               Squash all commits
+  --daily             Squash commits for each day separately
 
 Examples:
   node tools/index.js --all              # Squash all commits
   node tools/index.js --preview --all    # Preview all commits
+  node tools/index.js --daily            # Squash commits for each day
+  node tools/index.js --preview --daily  # Preview daily squash
 `;
 
   if (args.includes("--help") || args.includes("-h")) {
@@ -199,6 +333,7 @@ Examples:
 
   const options = {
     preview: args.includes("--preview") || args.includes("-p"),
+    daily: args.includes("--daily"),
   };
 
   run(options);
@@ -207,11 +342,15 @@ Examples:
 // Export for use as module
 export {
   getAllCommits,
+  getCommitDates,
+  getCommitsByDate,
   getCommitDetails,
   getResetTarget,
   generateCommitMessage,
   createSquashCommit,
   preview,
+  squashDaily,
+  previewDaily,
   run,
 };
 

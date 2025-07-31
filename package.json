@@ -7,7 +7,9 @@
     "format": "prettier --write .",
     "squash": "node tools/index.js",
     "squash:all": "node tools/index.js --all",
-    "squash:preview:all": "node tools/index.js --preview --all"
+    "squash:preview:all": "node tools/index.js --preview --all",
+    "squash:daily": "node tools/index.js --daily",
+    "squash:preview:daily": "node tools/index.js --preview --daily"
   },
   "author": "",
   "license": "ISC",
