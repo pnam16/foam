@@ -63,6 +63,44 @@ This vault is configured with:
 - **Custom CSS styling** for better readability
 - **Jekyll layouts** for web publishing
 
+## 🛠️ Development Tools
+
+### Git Commit Squashing
+This vault includes a custom tool for managing git commit history by squashing multiple commits into organized, meaningful commits.
+
+#### Available Scripts
+```bash
+# Squash all commits at once
+npm run squash:all
+
+# Preview what would be squashed (all commits)
+npm run squash:preview:all
+
+# Squash commits for each day separately
+npm run squash:daily
+
+# Preview daily squash operation
+npm run squash:preview:daily
+```
+
+#### How It Works
+- **Daily Squashing**: Groups commits by date and creates one squash commit per day, preserving the original commit date
+- **All Commits Squashing**: Combines all commits into a single commit
+- **Preview Mode**: Shows what would be squashed without actually performing the operation
+- **Smart Processing**: Automatically skips days with only one commit (no squashing needed)
+
+#### Use Cases
+- **Clean up frequent small commits** into meaningful daily summaries
+- **Maintain clean git history** while preserving chronological information
+- **Prepare for releases** by consolidating development commits
+- **Review changes** before squashing with preview mode
+
+#### Safety Features
+- **Preview mode** to review changes before applying
+- **Preserves original commit dates** to maintain timeline accuracy
+- **Soft reset approach** to avoid losing work
+- **Error handling** with helpful recovery instructions
+
 ## 📁 Folder Structure
 ```
 foam/
@@ -77,6 +115,8 @@ foam/
 │           ├── release-note/ # Release documentation
 │           └── tickets/   # Issue tracking
 ├── templates/             # Note templates
+├── tools/                 # Development tools and scripts
+│   └── index.js          # Git commit squashing tool
 ├── _layouts/             # Jekyll layout templates
 ├── assets/               # CSS and styling
 └── attachments/          # Images and files
