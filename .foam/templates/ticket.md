@@ -89,5 +89,5 @@
 
 ## 🏷️ Tags
 
-#ticket #{{workspace}} #{{project}} #{{version}} #{{scope}} #{{category}} #{{type}} #{{workspace}} #{{project}} #{{version}} #{{scope}} #{{category}} #{{type}} #Ticket
-#TCI #HR #HC02 #Featue #Ticket
+#ticket/{{workspace}}/{{project}}/{{version}}/{{scope}}/{{category}}/{{type}}
+#ticket/TCI/HR/0.2.1/HC02/Code/Featue
