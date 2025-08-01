@@ -43,5 +43,5 @@
 
 ## 🏷️ Tags
 
-#ticket/{{workspace}}/{{project}}/{{version}}/{{scope}}/{{category}}/{{type}}
-#ticket/TCI/HR/0.2.1/HC02/Code/Featue
+#ticket/{{workspace}}/{{project}}/{{category}}/{{type}}
+#ticket/TCI/HR/Code/Featue
