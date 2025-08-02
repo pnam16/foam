@@ -34,7 +34,7 @@ const getCommitsByDate = (date) => {
     const d = new Date(date);
     d.setDate(d.getDate() + 1);
     const nextDate = d.toISOString().slice(0, 10);
-    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 00:00:00 UTC" --until="${nextDate} 00:00:00 UTC"`;
+    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 18:30:00 UTC" --until="${nextDate} 18:30:00 UTC"`;
 
     const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
 
