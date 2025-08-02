@@ -30,3 +30,8 @@ B
 ```
 
 ## Event Loop’s Macrotask Queue
+
+- Bao gồm:
+  - setTimeout(), setInterval()
+  - setImmediate() (Node.js)
+  - I/O tasks, UI rendering
