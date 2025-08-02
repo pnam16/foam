@@ -178,6 +178,7 @@ const squashDaily = () => {
 
   for (const date of sortedDates) {
     const commits = getCommitsByDate(date);
+
     if (commits.length > 1) {
       console.log(`\nProcessing ${date} (${commits.length} commits)...`);
       createSquashCommit(commits, date);
