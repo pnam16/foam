@@ -35,6 +35,10 @@ B
   - setTimeout(), setInterval()
   - setImmediate() (Node.js)
   - I/O tasks, UI rendering
+- Đặc điểm:
+  - Mỗi macrotask được đưa vào hàng đợi.
+  - Microtask chạy trước, Macrotask chạy sau
+  - Sau khi call stack rỗng, event loop kiểm tra và xử lý toàn bộ microtask trước, rồi mới lấy 1 macrotask để chạy.
 
 ```javascript
 console.log("A");
