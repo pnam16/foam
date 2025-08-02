@@ -29,7 +29,12 @@ const getCommitDates = () => {
  */
 const getCommitsByDate = (date) => {
   try {
-    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 18:30:00 UTC" --until="${date} 18:30:00 UTC"`;
+    // util = next daye
+    // Calculate the next day in YYYY-MM-DD format
+    const d = new Date(date);
+    d.setDate(d.getDate() + 1);
+    const nextDate = d.toISOString().slice(0, 10);
+    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 00:00:00 UTC" --until="${nextDate} 00:00:00 UTC"`;
 
     const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
 
