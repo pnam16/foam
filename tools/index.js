@@ -30,6 +30,8 @@ const getCommitDates = () => {
 const getCommitsByDate = (date) => {
   try {
     const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 00:00:00" --until="${date} 23:59:59"`;
+
+    console.log(command);
     const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
 
     if (!output.trim()) {
@@ -158,7 +160,7 @@ const createSquashCommit = (commits, date = null) => {
  * Squash commits for each day
  */
 const squashDaily = () => {
-  const dates = getCommitDates();
+  let dates = getCommitDates();
 
   if (dates.length === 0) {
     console.log("No commits found.");
@@ -174,9 +176,9 @@ const squashDaily = () => {
   console.log("\nStarting daily squash process...\n");
 
   // Process dates in reverse order (oldest first) to avoid conflicts
-  const sortedDates = [...dates].sort();
+  dates = dates.sort();
 
-  for (const date of sortedDates) {
+  for (const date of dates) {
     const commits = getCommitsByDate(date);
 
     if (commits.length > 1) {
@@ -292,3 +294,5 @@ const isMainModule = import.meta.url.endsWith(normalizePath(process.argv[1]));
 if (isMainModule) {
   main();
 }
+
+getCommitsByDate("2025-07-30");
