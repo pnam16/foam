@@ -253,7 +253,7 @@ const squashDaily = () => {
  * Preview daily squash
  */
 const previewDaily = () => {
-  const dates = getCommitDates();
+  let dates = getCommitDates();
 
   if (dates.length === 0) {
     console.log("No commits found.");
@@ -263,10 +263,11 @@ const previewDaily = () => {
   console.log(`Found commits from ${dates.length} different days:\n`);
 
   // Process dates in reverse order (oldest first)
-  const sortedDates = [...dates].sort();
+  dates = dates.sort();
 
-  for (const date of sortedDates) {
+  for (const date of dates) {
     const commits = getCommitsByDate(date);
+
     if (commits.length > 1) {
       console.log(`\n📅 ${date}: ${commits.length} commits would be squashed`);
       commits.forEach((commit, index) => {
