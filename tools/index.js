@@ -300,8 +300,7 @@ const run = (options = {}) => {
   } else if (isPreview) {
     preview();
   } else {
-    const commits = getAllCommits();
-    createSquashCommit(commits);
+    console.log("Please specify --daily or --preview option. Use --help for more information.");
   }
 };
 
@@ -317,12 +316,9 @@ Usage: node tools/index.js [options]
 Options:
   --help, -h          Show this help message
   --preview, -p       Preview what would be squashed
-  --all               Squash all commits
   --daily             Squash commits for each day separately
 
 Examples:
-  node tools/index.js --all              # Squash all commits
-  node tools/index.js --preview --all    # Preview all commits
   node tools/index.js --daily            # Squash commits for each day
   node tools/index.js --preview --daily  # Preview daily squash
 `;
