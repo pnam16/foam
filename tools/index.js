@@ -5,35 +5,6 @@ import {execSync} from "child_process";
 const repoPath = process.cwd();
 
 /**
- * Get all commits
- */
-const getAllCommits = () => {
-  try {
-    const command = 'git --no-pager log --oneline --format="%H %s"';
-    const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
-
-    if (!output.trim()) {
-      console.log("No commits found.");
-      return [];
-    }
-
-    return output
-      .trim()
-      .split("\n")
-      .map((line) => {
-        const [hash, ...messageParts] = line.split(" ");
-        return {
-          hash: hash,
-          message: messageParts.join(" "),
-        };
-      });
-  } catch (error) {
-    console.error("Error getting commits:", error.message);
-    return [];
-  }
-};
-
-/**
  * Get all unique dates from commits
  */
 const getCommitDates = () => {
@@ -184,33 +155,6 @@ const createSquashCommit = (commits, date = null) => {
 };
 
 /**
- * Preview what would be squashed without actually doing it
- */
-const preview = () => {
-  const commits = getAllCommits();
-
-  if (commits.length === 0) {
-    console.log("No commits found.");
-    return;
-  }
-
-  console.log(`\n📅 Preview: Would squash ${commits.length} commits:\n`);
-  commits.forEach((commit, index) => {
-    console.log(
-      `${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`,
-    );
-  });
-
-  const firstCommit = getCommitDetails(commits[0].hash);
-  if (firstCommit) {
-    console.log(`\n📅 Preserved date would be: ${firstCommit.date}`);
-  }
-
-  const message = generateCommitMessage(commits);
-  console.log(`📝 Commit message would be: ${message}`);
-};
-
-/**
  * Squash commits for each day
  */
 const squashDaily = () => {
@@ -298,9 +242,13 @@ const run = (options = {}) => {
       squashDaily();
     }
   } else if (isPreview) {
-    preview();
+    console.log(
+      "Please use --preview --daily to preview daily squash operations.",
+    );
   } else {
-    console.log("Please specify --daily or --preview option. Use --help for more information.");
+    console.log(
+      "Please specify --daily or --preview --daily option. Use --help for more information.",
+    );
   }
 };
 
@@ -334,21 +282,6 @@ Examples:
   };
 
   run(options);
-};
-
-// Export for use as module
-export {
-  getAllCommits,
-  getCommitDates,
-  getCommitsByDate,
-  getCommitDetails,
-  getResetTarget,
-  generateCommitMessage,
-  createSquashCommit,
-  preview,
-  squashDaily,
-  previewDaily,
-  run,
 };
 
 // Run if called directly
