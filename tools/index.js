@@ -143,9 +143,9 @@ const createSquashCommit = (commits, date = null) => {
     });
 
     console.log(
-      `✅ Successfully squashed ${commits.length} commits into one with preserved date: ${firstCommit.date}`,
+      `Successfully squashed ${commits.length} commits into one with preserved date: ${firstCommit.date}`,
     );
-    console.log(`📝 Commit message: ${commitMessage}`);
+    console.log(`Commit message: ${commitMessage}`);
   } catch (error) {
     console.error("Error during squash:", error.message);
     console.log(
@@ -179,18 +179,16 @@ const squashDaily = () => {
   for (const date of sortedDates) {
     const commits = getCommitsByDate(date);
     if (commits.length > 1) {
-      console.log(`\n🔄 Processing ${date} (${commits.length} commits)...`);
+      console.log(`\nProcessing ${date} (${commits.length} commits)...`);
       createSquashCommit(commits, date);
     } else if (commits.length === 1) {
-      console.log(
-        `\n⏭️  Skipping ${date} (only 1 commit, no squashing needed)`,
-      );
+      console.log(`\nSkipping ${date} (only 1 commit, no squashing needed)`);
     } else {
-      console.log(`\n⏭️  Skipping ${date} (no commits)`);
+      console.log(`\nSkipping ${date} (no commits)`);
     }
   }
 
-  console.log("\n✅ Daily squash process completed!");
+  console.log("\nDaily squash process completed!");
 };
 
 /**
@@ -213,18 +211,18 @@ const previewDaily = () => {
     const commits = getCommitsByDate(date);
 
     if (commits.length > 1) {
-      console.log(`\n📅 ${date}: ${commits.length} commits would be squashed`);
+      console.log(`\n${date}: ${commits.length} commits would be squashed`);
       commits.forEach((commit, index) => {
         console.log(
           `   ${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`,
         );
       });
       const message = generateCommitMessage(commits, date);
-      console.log(`   📝 Message: ${message}`);
+      console.log(`   Message: ${message}`);
     } else if (commits.length === 1) {
-      console.log(`\n📅 ${date}: 1 commit (no squashing needed)`);
+      console.log(`\n${date}: 1 commit (no squashing needed)`);
     } else {
-      console.log(`\n📅 ${date}: no commits`);
+      console.log(`\n${date}: no commits`);
     }
   }
 };
