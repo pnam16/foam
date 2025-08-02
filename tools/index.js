@@ -29,9 +29,8 @@ const getCommitDates = () => {
  */
 const getCommitsByDate = (date) => {
   try {
-    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 00:00:00" --until="${date} 23:59:59"`;
+    const command = `git --no-pager log --oneline --format="%H %s" --since="${date} 18:30:00 UTC" --until="${date} 18:30:00 UTC"`;
 
-    console.log(command);
     const output = execSync(command, {cwd: repoPath, encoding: "utf8"});
 
     if (!output.trim()) {
@@ -92,19 +91,9 @@ const getResetTarget = (commits) => {
 };
 
 /**
- * Generate commit message for squashed commits
- */
-const generateCommitMessage = (commits, date = null) => {
-  if (date) {
-    return `Daily commit squash - ${date} (${commits.length} commits)`;
-  }
-  return `Squash all commits - ${commits.length} commits`;
-};
-
-/**
  * Create a squash commit with preserved date
  */
-const createSquashCommit = (commits, date = null) => {
+const createSquashCommit = (commits, date) => {
   if (commits.length === 0) {
     console.log("No commits to squash.");
     return;
@@ -122,7 +111,7 @@ const createSquashCommit = (commits, date = null) => {
   }
 
   // Create commit message
-  const commitMessage = generateCommitMessage(commits, date);
+  const commitMessage = `${date} (${commits.length} commits)`;
 
   // Reset to the commit before the specified commits
   const resetTarget = getResetTarget(commits);
@@ -166,14 +155,6 @@ const squashDaily = () => {
     console.log("No commits found.");
     return;
   }
-
-  console.log(`Found commits from ${dates.length} different days:\n`);
-  dates.forEach((date, index) => {
-    const commits = getCommitsByDate(date);
-    console.log(`${index + 1}. ${date}: ${commits.length} commits`);
-  });
-
-  console.log("\nStarting daily squash process...\n");
 
   // Process dates in reverse order (oldest first) to avoid conflicts
   dates = dates.sort();
@@ -220,7 +201,7 @@ const previewDaily = () => {
           `   ${index + 1}. ${commit.hash.substring(0, 8)} - ${commit.message}`,
         );
       });
-      const message = generateCommitMessage(commits, date);
+      const message = `${date} (${commits.length} commits)`;
       console.log(`   Message: ${message}`);
     } else if (commits.length === 1) {
       console.log(`\n${date}: 1 commit (no squashing needed)`);
@@ -294,5 +275,3 @@ const isMainModule = import.meta.url.endsWith(normalizePath(process.argv[1]));
 if (isMainModule) {
   main();
 }
-
-getCommitsByDate("2025-07-30");
