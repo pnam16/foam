@@ -36,3 +36,25 @@ B
   - setImmediate() (Node.js)
   - I/O tasks, UI rendering
 
+```javascript
+console.log("A");
+
+setTimeout(() => {
+  console.log("B");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("C");
+});
+
+console.log("D");
+```
+
+Kết quả:
+
+```
+A
+D
+C   ← microtask
+B   ← macrotask
+```
