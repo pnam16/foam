@@ -23,7 +23,7 @@ D - Dependency Inversion Principle (Nguyên tắc đảo ngược phụ thuộc)
 
 ### L
 
-- Các object của class con có thể thay thế class cha mà không làm thay đổi tính đúng đắn của chương trình
+- Các đối tượng của một lớp con phải có thể thay thế cho lớp cha mà không làm hỏng chương trình
 
 ### I
 
