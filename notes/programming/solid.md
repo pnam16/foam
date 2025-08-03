@@ -8,3 +8,25 @@ O - Open/Closed Principle (Nguyên tắc mở/đóng)
 L - Liskov Substitution Principle (Nguyên tắc thay thế Liskov)
 I - Interface Segregation Principle (Nguyên tắc phân tách giao diện)
 D - Dependency Inversion Principle (Nguyên tắc đảo ngược phụ thuộc)
+
+## Chi tiết từng nguyên tắc
+
+### S
+
+- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+
+### O
+
+- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+
+### L
+
+- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+
+### I
+
+- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+
+### D
+
+- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
