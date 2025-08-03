@@ -23,11 +23,11 @@ D - Dependency Inversion Principle (Nguyên tắc đảo ngược phụ thuộc)
 
 ### L
 
-- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+- Các object của class con có thể thay thế class cha mà không làm thay đổi tính đúng đắn của chương trình
 
 ### I
 
-- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+- Thay vì dùng 1 interface lớn, ta nên tách thành nhiều interface nhỏ, với nhiều mục đích cụ thể
 
 ### D
 
