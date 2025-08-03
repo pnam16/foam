@@ -28,7 +28,8 @@ D - Dependency Inversion Principle (Nguyên tắc đảo ngược phụ thuộc)
 ### I
 
 - Thay vì dùng 1 interface lớn, ta nên tách thành nhiều interface nhỏ, với nhiều mục đích cụ thể
+- Tách interface lớn thành các interface nhỏ, cụ thể hơn, giảm sự phụ thuộc không cần thiết
 
 ### D
 
-- 1 class chỉ chịu 1 trách nhiệm, 1 chức năng duy nhất
+- Các module cấp cao không nên phụ thuộc vào module cấp thấp
