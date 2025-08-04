@@ -1,5 +1,3 @@
-# PHẦN 1: LÝ THUYẾT CỐT LÕI (30–45 phút)
-
 ## Scope, Hoisting, Closure
 
 - **Scope**: Có 3 loại chính: Global, Function, Block.
