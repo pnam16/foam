@@ -8,3 +8,5 @@
   - React sử dụng cơ chế bất đồng bộ để tối ưu hóa hiệu suất.
     Thay vì cập nhật state ngay lập tức, React nhóm các thao tác cập nhật lại và thực hiện chúng trong một lần render duy nhất
   - Quá trình này được quản lý bởi `React Scheduler`
+- Hậu quả của tính bất đồng bộ
+  - 
