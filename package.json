@@ -1,0 +1,15 @@
+{
+  "name": "foam",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Welcome to my personal knowledge management system built with Foam! This vault serves as my digital brain for organizing thoughts, projects, and learning across multiple domains.",
+  "scripts": {
+    "format": "prettier --write .",
+    "squash": "./script/squash.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}

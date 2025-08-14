@@ -1,22 +1,33 @@
 {
-  "files.autoSave": "onFocusChange",
-  "editor.minimap.enabled": false,
-  "editor.wrappingIndent": "indent",
-  "editor.overviewRulerBorder": false,
-  "editor.lineHeight": 24,
-  "foam.edit.linkReferenceDefinitions": "withExtensions",
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
   "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.quickSuggestions": {
-      "other": true,
       "comments": false,
+      "other": true,
       "strings": false
     }
   },
-  "git.enableSmartCommit": true,
-  "git.postCommitCommand": "sync",
+  "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
   "files.exclude": {
-    "_site/**": true
+    "_site/**": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/node_modules": true
   },
   "files.insertFinalNewline": true,
-  "markdown.styles": [".vscode/custom-tag-style.css"]
+  "foam.edit.linkReferenceDefinitions": "withExtensions",
+  "foam.openDailyNote.directory": "daily",
+  "git.enableSmartCommit": true,
+  "git.postCommitCommand": "sync",
+  "gitdoc.ai.enabled": true,
+  "gitdoc.autoCommitDelay": 30000,
+  "gitdoc.enabled": true,
+  "gitdoc.timeZone": "Asia/Ho_Chi_Minh",
+  "markdown.styles": [
+    ".vscode/custom-tag-style.css"
+  ]
 }
