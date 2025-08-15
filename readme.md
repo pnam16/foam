@@ -354,7 +354,7 @@ foam/
 │   ├── 🏢 career/             # Career development notes
 │   │   └── interview-preparation.md
 │   ├── 💰 personal/           # Personal development
-│   │   └── personal-finance-management.md
+│   │   └── finance-management.md
 │   └── 📝 prompt/             # AI prompt templates
 │       ├── daily-notes-to-structured-notes.md
 │       └── update-readme.md   # README update guidelines
