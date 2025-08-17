@@ -545,7 +545,7 @@ The ISC License is a permissive license that allows for:
 - **📅 Latest Daily Note**: [[2025-08-07]]
 - **🚀 Active Project**: [[projects/TCI/hr/tickets/35867|TCI HR #35867]]
 - **💻 Programming**: [[notes/programming/javascript/closures|JavaScript Closures]]
-- **📈 Trading**: [[notes/trading/wyckoff-schematic|Wyckoff Method]]
+- **📈 Trading**: [[wyckoff-schematic|Wyckoff Method]]
 - **📝 Prompts**: [[notes/prompt/update-readme|README Update Guidelines]]
 
 ## 🏷️ Tags & Categories

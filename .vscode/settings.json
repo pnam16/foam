@@ -29,5 +29,8 @@
   "gitdoc.timeZone": "Asia/Ho_Chi_Minh",
   "markdown.styles": [
     ".vscode/custom-tag-style.css"
+  ],
+  "cSpell.words": [
+    "Wyckoff"
   ]
 }
