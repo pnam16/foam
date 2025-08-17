@@ -7,6 +7,7 @@
   - Nến tăng mạnh kèm khối lượng cao → cầu chiếm ưu thế.
   - Nến giảm mạnh kèm khối lượng cao → cung chiếm ưu thế.
   - Nến đi ngang nhưng khối lượng lớn → cung cầu đang giằng co.
+  - Khi giá tăng kèm volume lớn → cầu mạnh hơn cung (xu hướng tăng tiếp diễn).
 
 ## 2. Quy luật Nhân – Quả (Cause & Effect)
 
