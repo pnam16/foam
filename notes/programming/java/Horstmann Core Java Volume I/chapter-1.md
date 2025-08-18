@@ -11,3 +11,8 @@
 - JDK: compiler javac, JVM, libraries.
 - JRE: chỉ để chạy ứng dụng Java (không có compiler).
 - IDE phổ biến: IntelliJ, Eclipse, VS Code.
+
+## 1.5. Variables & Constants
+
+- `final` → hằng số.
+- Java có type safety, không thể thay đổi kiểu biến sau khi khai báo.
