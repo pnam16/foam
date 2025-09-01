@@ -1,0 +1,85 @@
+---
+title: Java Basics
+tags: [java, core]
+---
+
+# Java Basics
+
+## Java vs C/C++
+
+- Java chạy trên JVM, biên dịch thành bytecode → "Write once, run anywhere".
+- Khác với C/C++:
+  - Không quản lý bộ nhớ thủ công (Java có GC).
+  - Không hỗ trợ con trỏ trực tiếp.
+  - Tất cả class nằm trong package.
+  - Hướng đối tượng "thuần" hơn (không có đa kế thừa class).
+
+## JVM, JDK, JRE
+
+- JVM: Java Virtual Machine – máy ảo chạy bytecode.
+- JDK: Bộ công cụ phát triển (javac, JVM, libraries).
+- JRE: Môi trường chạy (không bao gồm compiler).
+
+Xem thêm: [[Horstmann Core Java Volume I/chapter-1]].
+
+## Kiểu dữ liệu
+
+- Primitive types (8 loại): `byte`, `short`, `int`, `long`, `float`, `double`, `char`, `boolean`.
+- Reference types: `Object`, `String`, `Array`, `Class`.
+
+### Miền giá trị (range) của primitive và wrapper
+
+| Primitive | Wrapper     | Kích thước (bits)  | Giá trị nhỏ nhất           | Giá trị lớn nhất          |
+| --------- | ----------- | ------------------ | -------------------------- | ------------------------- |
+| `byte`    | `Byte`      | 8                  | -128                       | 127                       |
+| `short`   | `Short`     | 16                 | -32,768                    | 32,767                    |
+| `int`     | `Integer`   | 32                 | -2,147,483,648             | 2,147,483,647             |
+| `long`    | `Long`      | 64                 | -9,223,372,036,854,775,808 | 9,223,372,036,854,775,807 |
+| `float`   | `Float`     | 32                 | ~1.4e-45                   | ~3.4028235e+38            |
+| `double`  | `Double`    | 64                 | ~4.9e-324                  | ~1.7976931348623157e+308  |
+| `char`    | `Character` | 16                 | 0 (`\u0000`)               | 65,535 (`\uffff`)         |
+| `boolean` | `Boolean`   | JVM-dependent (\*) | `false`                    | `true`                    |
+| _(none)_  | `Void`      | —                  | —                          | —                         |
+
+## String và Tính bất biến
+
+- `String` là immutable.
+
+## So sánh `==` và `equals()`
+
+- `==`: so sánh tham chiếu (cùng object trong memory).
+- `equals()`: so sánh giá trị (nội dung).
+
+```java
+String a = new String("abc");
+String b = new String("abc");
+
+System.out.println(a == b); // false
+System.out.println(a.equals(b)); // true
+```
+
+## `final`, `finally`, `finalize`
+
+- `final`: từ khóa → biến không đổi, class không kế thừa, method không override.
+- `finally`: block trong `try-catch`.
+- `finalize()`: method gọi trước khi GC thu hồi object (hiện ít dùng).
+
+## Wrapper Classes và Autoboxing
+
+- Wrapper class đóng gói `primitive` thành `object` (vd: `int` → `Integer`).
+- Dùng khi làm việc với Collections (chỉ lưu object).
+- Autoboxing/unboxing: Java tự chuyển Primitive ↔ Wrapper khi cần.
+
+## `var` trong Java (Java 10+)
+
+- `var` cho phép type inference ở compile-time; Java vẫn strongly typed.
+
+```java
+var name = "Ame"; // String
+var age = 25;      // int
+```
+
+## Quản lý bộ nhớ
+
+- Object lưu trong Heap; biến local lưu trong Stack.
+- Garbage Collector tự động dọn object không còn reference.
