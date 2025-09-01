@@ -5,7 +5,8 @@
   "description": "Welcome to my personal knowledge management system built with Foam! This vault serves as my digital brain for organizing thoughts, projects, and learning across multiple domains.",
   "scripts": {
     "format": "prettier --write .",
-    "squash": "./script/squash.sh"
+    "squash": "./script/squash.sh",
+    "extract": "node tools/extract-notes.js"
   },
   "author": "",
   "license": "ISC",
