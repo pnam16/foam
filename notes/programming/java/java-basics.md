@@ -29,17 +29,17 @@ Xem thêm: [[Horstmann Core Java Volume I/chapter-3]].
 
 ### Miền giá trị (range) của primitive và wrapper
 
-| Primitive | Wrapper     | Kích thước (bits)  | Giá trị nhỏ nhất           | Giá trị lớn nhất          |
-| --------- | ----------- | ------------------ | -------------------------- | ------------------------- |
-| `byte`    | `Byte`      | 8                  | -128                       | 127                       |
-| `short`   | `Short`     | 16                 | -32,768                    | 32,767                    |
-| `int`     | `Integer`   | 32                 | -2,147,483,648             | 2,147,483,647             |
-| `long`    | `Long`      | 64                 | -9,223,372,036,854,775,808 | 9,223,372,036,854,775,807 |
-| `float`   | `Float`     | 32                 | ~1.4e-45                   | ~3.4028235e+38            |
-| `double`  | `Double`    | 64                 | ~4.9e-324                  | ~1.7976931348623157e+308  |
-| `char`    | `Character` | 16                 | 0 (`\u0000`)               | 65,535 (`\uffff`)         |
-| `boolean` | `Boolean`   | JVM-dependent (\*) | `false`                    | `true`                    |
-| _(none)_  | `Void`      | —                  | —                          | —                         |
+| Primitive | Wrapper     | Kích thước (bits) | Giá trị nhỏ nhất           | Giá trị lớn nhất          |
+| --------- | ----------- | ----------------- | -------------------------- | ------------------------- |
+| `byte`    | `Byte`      | 8                 | -128                       | 127                       |
+| `short`   | `Short`     | 16                | -32,768                    | 32,767                    |
+| `int`     | `Integer`   | 32                | -2,147,483,648             | 2,147,483,647             |
+| `long`    | `Long`      | 64                | -9,223,372,036,854,775,808 | 9,223,372,036,854,775,807 |
+| `float`   | `Float`     | 32                | ~1.4e-45                   | ~3.4028235e+38            |
+| `double`  | `Double`    | 64                | ~4.9e-324                  | ~1.7976931348623157e+308  |
+| `char`    | `Character` | 16                | 0 (`\u0000`)               | 65,535 (`\uffff`)         |
+| `boolean` | `Boolean`   | JVM-dependent     | `false`                    | `true`                    |
+| _(none)_  | `Void`      | —                 | —                          | —                         |
 
 ## String và Tính bất biến
 
