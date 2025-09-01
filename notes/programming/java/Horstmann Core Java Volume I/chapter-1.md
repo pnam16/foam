@@ -1,4 +1,4 @@
-# Tóm tắt Chương 1 – Fundamentals of Programming (Horstmann, Core Java Vol I)
+# Chương 1 – Fundamentals of Programming (Horstmann, Core Java Vol I)
 
 ## 1.1. Java Overview
 
