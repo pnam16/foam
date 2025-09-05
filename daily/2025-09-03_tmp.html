@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>2025-09-03.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+<link rel="stylesheet" href="file:///Users/pnam/ws/ame/foam/.vscode/custom-tag-style.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="2025-09-03">2025-09-03</h2>
+<h2 id="%F0%9F%93%8C-danh-s%C3%A1ch-c%C3%A2u-h%E1%BB%8Fi-%C3%B4n-ph%E1%BB%8Fng-v%E1%BA%A5n-java-backend">📌 DANH SÁCH CÂU HỎI ÔN PHỎNG VẤN JAVA BACKEND</h2>
+<h3 id="1-java-core">1. Java Core</h3>
+<ol>
+<li>JVM, JRE, JDK khác nhau thế nào?</li>
+</ol>
+<ul>
+<li>JVM (Java Virtual Machine)
+<ul>
+<li>Là máy ảo thực thi bytecode Java.</li>
+<li>Chịu trách nhiệm dịch bytecode thành mã máy (qua interpreter hoặc JIT compiler) và quản lý bộ nhớ, garbage collection, thread.</li>
+</ul>
+</li>
+<li>JRE (Java Runtime Environment)
+<ul>
+<li>Là môi trường chạy ứng dụng Java.</li>
+</ul>
+</li>
+<li>JDK (Java Development Kit)
+<ul>
+<li>Là bộ công cụ phát triển Java</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Thành phần</th>
+<th>Gồm những gì</th>
+<th>Mục đích</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JVM</strong></td>
+<td>Máy ảo Java</td>
+<td>Chạy bytecode Java trên máy thật</td>
+</tr>
+<tr>
+<td><strong>JRE</strong></td>
+<td>JVM + thư viện chuẩn</td>
+<td>Chạy ứng dụng Java đã biên dịch</td>
+</tr>
+<tr>
+<td><strong>JDK</strong></td>
+<td>JRE + công cụ phát triển</td>
+<td>Viết, biên dịch, chạy, gỡ lỗi ứng dụng Java</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><code>Garbage Collection</code> hoạt động ra sao? Có những loại GC nào?</li>
+</ol>
+<ul>
+<li>Là cơ chế tự động quản lý bộ nhớ</li>
+<li>Cách hoạt động cơ bản
+<ul>
+<li>Theo dõi tham chiếu (reachability):
+<ul>
+<li>JVM đánh dấu object nào còn được truy cập qua biến, stack, static field, hoặc từ object khác.</li>
+</ul>
+</li>
+<li>Dọn dẹp (sweep):
+<ul>
+<li>Object không còn được tham chiếu sẽ được đánh dấu “garbage” và bộ nhớ của nó sẽ được giải phóng.</li>
+</ul>
+</li>
+<li>Tối ưu (compact):
+<ul>
+<li>Một số GC sẽ nén lại bộ nhớ heap để tránh phân mảnh.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><code>Thread Pool</code> trong Java</li>
+</ol>
+<ul>
+<li>Là một nhóm các thread đã được khởi tạo sẵn để tái sử dụng cho nhiều tác vụ khác nhau.</li>
+<li>Tránh khởi tạo/destroy thread liên tục</li>
+<li>Hạn chế số thread tối đa chạy song song.</li>
+<li>Thread có thể tái sử dụng sau khi chạy.</li>
+</ul>
+<ol start="4">
+<li><code>synchronized</code> vs <code>volatile</code> khác nhau thế nào?</li>
+</ol>
+<ul>
+<li><code>volatile</code>
+<ul>
+<li>Báo cho JVM rằng biến được lưu trong bộ nhớ chính (main memory), không chỉ trong cache của thread.</li>
+<li>Dùng khi biến được <strong>nhiều thread</strong> đọc/ghi, nhưng thao tác chỉ là <strong>đọc hoặc gán giá trị đơn giản</strong>.</li>
+</ul>
+</li>
+<li><code>synchronized</code>
+<ul>
+<li>Dùng để <em>lock a block or method</em>, đảm bảo chỉ <strong>một thread thực thi tại một thời điểm</strong>.</li>
+<li>Khi thread thoát khỏi <code>synchronized</code>, các thay đổi được ghi ra bộ nhớ chính; thread khác vào <code>synchronized</code> sẽ thấy giá trị mới.</li>
+<li>Dùng khi nhiều thao tác phụ thuộc nhau.</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li><code>HashMap</code> vs <code>ConcurrentHashMap</code> khác nhau gì?</li>
+</ol>
+<ul>
+<li>Đồng bộ hóa (Thread-safety):
+<ul>
+<li><code>HashMap</code>:
+<ul>
+<li>Không thread-safe.</li>
+<li>Nếu nhiều thread truy cập và sửa đổi HashMap cùng lúc có thể dẫn đến lỗi dữ liệu hoặc ngoại lệ.</li>
+</ul>
+</li>
+<li><code>ConcurrentHashMap</code>
+<ul>
+<li>Thread-safe.</li>
+<li>Được thiết kế để hỗ trợ nhiều thread truy cập và sửa đổi đồng thời.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hiệu suất
+<ul>
+<li><code>HashMap</code> nhanh hơn trong môi trường đơn luồng.</li>
+</ul>
+</li>
+<li>Cơ chế khóa
+<ul>
+<li><code>HashMap</code> không có cơ chế khóa.</li>
+<li><code>ConcurrentHashMap</code>
+<ul>
+<li>Java 7: Dùng <code>Segment Locking</code>. Map chia thành nhiều segment (mảng nhỏ), mỗi segment quản lý một phần dữ liệu</li>
+<li>Java 8+
+<ul>
+<li>Sử dụng Node-level Locking + CAS (Compare-And-Swap)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Null value
+<ul>
+<li><code>HashMap</code> cho phép 1 null key và nhiều null value.</li>
+<li><code>ConcurrentHashMap</code> không cho phép null key, null value.</li>
+</ul>
+</li>
+<li>Sử dụng
+<ul>
+<li><code>HashMap</code> trong môi trường đơn luồng và cần hiệu suất tối ưu</li>
+<li><code>ConcurrentHashMap</code> khi cần thread-safety trong môi trường đa luồng</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>Cách hoạt động của <code>HashMap</code>, <code>HashSet</code></li>
+</ol>
+<ul>
+<li><code>HashMap</code>
+<ul>
+<li>Chứa một mảng (array) các bucket</li>
+<li>Mỗi bucket lưu các Node (cặp key-value)</li>
+<li>Key là duy nhất</li>
+<li>Sử dụng kỹ thuật <code>hashing</code> để lưu trữ và tìm kiếm dữ liệu hiệu quả.</li>
+<li>Khi thêm một cặp key-value vào HashMap
+<ul>
+<li>Sử dụng Hash function chuyển key thành 1 số nguyên (hash code)</li>
+<li>Hash code ánh xạ tới một vị trí (index) trong một mảng bên trong HashMap</li>
+</ul>
+</li>
+<li>Lưu trữ dữ liệu
+<ul>
+<li>Sử dụng một mảng các bucket để lưu trữ dữ liệu.</li>
+<li>Khi bạn thêm một cặp key-value:
+<ul>
+<li>Key được băm để tìm bucket tương ứng.</li>
+<li>Nếu bucket trống, cặp key-value được lưu trực tiếp.</li>
+<li>Nếu bucket đã có dữ liệu (va chạm), HashMap sử dụng danh sách liên kết (linked list) hoặc cây đỏ đen(red-black tree) để xử lý</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Truy xuất dữ liêu
+<ul>
+<li>HashMap băm key để tìm bucket.</li>
+<li>Nếu bucket có nhiều cặp key-value (do va chạm), nó sẽ so sánh key bạn cung cấp với các key trong bucket để tìm đúng giá trị.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>HashSet</code>
+<ul>
+<li>Chỉ lưu giá trị không lưu key-value</li>
+<li>Mỗi phần tử bạn thêm vào <code>HashSet</code> sẽ được lưu dưới dạng
+<ul>
+<li><code>key</code> của <code>HashMap</code></li>
+<li><code>value</code> là một object hằng số (thường là <code>PRESENT</code>)</li>
+</ul>
+</li>
+<li>Không cho phép trùng lặp dựa <code>hashCode()</code> và <code>equals()</code> để kiểm tra.</li>
+</ul>
+</li>
+</ul>
+<ol start="7">
+<li>So sánh <code>ArrayList</code> và <code>LinkedList</code>.</li>
+</ol>
+<ul>
+<li><code>ArrayList</code>
+<ul>
+<li>Dùng mảng động (dynamic array) bên trong.</li>
+<li>Các phần tử được lưu trữ liền kề nhau trong bộ nhớ.</li>
+<li>Khi đầy sẽ cấp phát mảng mới và copy lại toàn bộ phần tử.</li>
+<li>Truy cập ngẫu nhiên nhanh.</li>
+<li>Phù hợp khi cần đọc dữ liệu thường xuyên.</li>
+<li>Thêm/xóa ở giữa chậm: O(n) vì phải dịch chuyển các phần tử phía sau.</li>
+<li>Capacity
+<ul>
+<li>Độ dài của mảng bên trong mà <code>ArrayList</code> dùng để lưu phần tử.</li>
+<li>Khi số phần tử thực tế (size) &gt; capacity <code>ArrayList</code> sẽ tự động tăng capacity
+<ul>
+<li>Theo mặc định, mỗi lần tăng thì capacity mới ≈ oldCapacity * 1.5 + 1.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>LinkedList</code>
+<ul>
+<li>Dựa trên danh sách liên kết đôi (doubly linked list).</li>
+<li>Mỗi phần tử (node) chứa dữ liệu và tham chiếu đến node trước/sau.</li>
+<li>Tốt cho các cấu trúc hàng đợi, stack, hoặc thao tác chèn/xóa nhiều.</li>
+</ul>
+</li>
+</ul>
+<ol start="8">
+<li>Exception: checked vs unchecked?</li>
+</ol>
+<ul>
+<li><code>Checked Exceptions</code>
+<ul>
+<li>Exceptions that are checked at compile-time</li>
+<li>Là các exception không thuộc RuntimeException hay Error</li>
+<li>Compiler sẽ kiểm tra khi biên dịch.</li>
+<li>Ví dụ <code>IOException</code>, <code>SQLException</code></li>
+</ul>
+</li>
+<li><code>Unchecked Exception</code>
+<ul>
+<li>Exceptions that are not checked at compile-time</li>
+<li>Ví dụ <code>NullPointerException</code></li>
+</ul>
+</li>
+</ul>
+<ol start="9">
+<li>Immutability là gì? Ví dụ với <code>String</code>.</li>
+</ol>
+<ul>
+<li>String là một lớp bất biến (immutable).</li>
+<li>Khi “thay đổi”, thực chất sẽ tạo ra một đối tượng mới thay vì sửa đổi đối tượng ban đầu.</li>
+</ul>
+<ol start="10">
+<li>Lambda expression trong Java hoạt động ra sao?</li>
+</ol>
+<ul>
+<li>
+<p>Lambda expression được dùng để triển khai một <code>Functional interface</code></p>
+<ul>
+<li><code>Functional interface</code> là 1 interface chỉ chứa 1 abstract method - Single Abstract Method (SAM)
+<ul>
+<li>Được đánh dấu bằng annotation <code>@FunctionalInterface</code> (không bắt buộc nhưng nên dùng)</li>
+<li><code>abstract method</code> - không có thân hàm</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">@FunctionalInterface</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Hello</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LambdaExpression</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+    Hello s = () -&gt; {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello Lambda."</span>;
+    };
+    System.out.println(s.sayHello());
+  }
+}
+</div></code></pre>
+</li>
+</ul>
+<ol start="11">
+<li>AutoConfiguration trong Spring Boot là gì?</li>
+</ol>
+<hr>
+<h3 id="2-spring-boot--microservices">2. Spring Boot &amp; Microservices</h3>
+<ol start="12">
+<li>Ưu điểm Spring Boot so với Spring truyền thống?</li>
+<li>Annotation thường dùng trong Spring Boot (5 cái)?</li>
+<li>Dependency Injection là gì? Có mấy cách?</li>
+</ol>
+<ul>
+<li>Thường sử dụng để triển khai <code>IoC</code>
+<ul>
+<li><code>Inversion of Control</code> (IoC)
+<ul>
+<li>Thay vì trực tiếp tạo <em>dependency</em> thì sử dụng IoC Container (như Spring) để <em>inject</em> nếu cần</li>
+</ul>
+</li>
+<li>Các <em>dependency</em> không được tạo bên trong đối tượng</li>
+<li>Inject dependencies từ bên ngoài thông qua Constructor, Setter, Interface</li>
+</ul>
+</li>
+</ul>
+<ol start="15">
+<li>Bean lifecycle trong Spring?</li>
+<li>Monolith vs Microservices khác nhau ở đâu?</li>
+<li>Ưu/nhược điểm microservices?</li>
+<li>Service discovery là gì? Dùng công cụ nào?</li>
+<li>Các cách giao tiếp giữa microservices (REST, gRPC, Kafka…)?</li>
+</ol>
+<h3 id="3-database-sql--nosql">3. Database (SQL &amp; NoSQL)</h3>
+<ol start="19">
+<li>Index hoạt động như thế nào? Khi nào nên dùng?</li>
+<li>So sánh JOIN và Subquery.</li>
+<li>Transaction có ACID nghĩa là gì?</li>
+<li>Khi nào dùng MongoDB thay vì MySQL?</li>
+</ol>
+<ul>
+<li>Dữ liệu phi cấu trúc hoặc bán cấu trúc</li>
+<li>Khối lượng dữ liệu lớn và cần mở rộng ngang (horizontal scaling)</li>
+<li>Dữ liệu dạng cây hoặc phân cấp</li>
+</ul>
+<ol start="23">
+<li>Primary key vs Unique key khác nhau thế nào?</li>
+<li>Explain query chậm bạn sẽ xử lý sao?</li>
+<li>Thiết kế bảng để lưu log user nên chọn SQL hay NoSQL? Vì sao?</li>
+</ol>
+<h3 id="4-api-design--security">4. API Design &amp; Security</h3>
+<ol start="26">
+<li>Thế nào là API RESTful?</li>
+<li>HTTP methods (GET, POST, PUT, PATCH, DELETE) khác nhau thế nào?</li>
+<li>Thế nào là idempotent API?</li>
+<li>JWT là gì? OAuth2 là gì?</li>
+<li>Authentication vs Authorization khác nhau?</li>
+<li>Làm sao chống SQL Injection?</li>
+<li>Làm sao chống CSRF và XSS?</li>
+<li>Pagination API thiết kế offset/limit hay cursor, ưu nhược điểm?</li>
+</ol>
+<h3 id="5-testing--code-quality">5. Testing &amp; Code Quality</h3>
+<ol start="34">
+<li>Unit test vs Integration test khác nhau?</li>
+<li>Bạn thường dùng framework test nào với Java?</li>
+<li>Nguyên tắc AAA (Arrange–Act–Assert) trong test là gì?</li>
+<li>Mocking là gì?</li>
+<li>Khi code review, bạn tập trung vào điểm nào?</li>
+<li>Làm sao để đo test coverage?</li>
+</ol>
+<h3 id="6-system-design--enterprise">6. System Design &amp; Enterprise</h3>
+<ol start="40">
+<li>Thiết kế hệ thống order service (e-commerce) theo microservices thế nào?</li>
+<li>Khi lượng request tăng gấp 10 lần, bạn scale thế nào?</li>
+<li>Caching layer đặt ở đâu trong hệ thống?</li>
+<li>Circuit Breaker pattern là gì? Dùng khi nào?</li>
+<li>Message Queue (Kafka/RabbitMQ) dùng để làm gì?</li>
+<li>Logging &amp; monitoring trong production bạn dùng công cụ nào?</li>
+</ol>
+<h3 id="7-cloud--devops">7. Cloud &amp; DevOps</h3>
+<ol start="46">
+<li>Docker container khác VM thế nào?</li>
+<li>Bạn triển khai Spring Boot lên Kubernetes thế nào?</li>
+<li>CI/CD pipeline gồm những bước gì?</li>
+<li>12-factor app là gì?</li>
+<li>Làm sao để giảm downtime khi deploy microservices?</li>
+</ol>
+<h3 id="8-agile--soft-skills">8. Agile &amp; Soft Skills</h3>
+<ol start="51">
+<li>Bạn đã làm việc trong Agile/Scrum chưa? Daily/Sprint Planning/Retrospective là gì?</li>
+<li>Nếu PO đổi yêu cầu liên tục, bạn xử lý thế nào?</li>
+<li>Khi một thành viên team không hoàn thành task, bạn sẽ làm gì?</li>
+<li>Bạn estimate task như thế nào (ví dụ viết API login)?</li>
+</ol>
+<h3 id="9-english-practice-s%E1%BA%BD-h%E1%BB%8Fi-b%E1%BA%B1ng-ti%E1%BA%BFng-anh">9. English Practice (sẽ hỏi bằng tiếng Anh)</h3>
+<ol start="55">
+<li>Explain the difference between monolithic and microservices architecture.</li>
+<li>How would you design a RESTful API for a user management system?</li>
+<li>Tell me about a time you solved a critical production issue.</li>
+<li>What are the advantages of using Spring Boot?</li>
+<li>How do you ensure database queries are optimized?</li>
+</ol>
+<hr>
+<h2 id="important">Important</h2>
+<ol>
+<li><code>HashMap</code> vs <code>ConcurrentHashMap</code> khác nhau gì?</li>
+</ol>
+<ul>
+<li>Đồng bộ hóa (Thread-safety):
+<ul>
+<li><code>HashMap</code>:
+<ul>
+<li>Không thread-safe.</li>
+<li>Nếu nhiều thread truy cập và sửa đổi HashMap cùng lúc có thể dẫn đến lỗi dữ liệu hoặc ngoại lệ.</li>
+</ul>
+</li>
+<li><code>ConcurrentHashMap</code>
+<ul>
+<li>Thread-safe.</li>
+<li>Được thiết kế để hỗ trợ nhiều thread truy cập và sửa đổi đồng thời.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hiệu suất
+<ul>
+<li><code>HashMap</code> nhanh hơn trong môi trường đơn luồng.</li>
+</ul>
+</li>
+<li>Cơ chế khóa
+<ul>
+<li><code>HashMap</code> không có cơ chế khóa.</li>
+<li><code>ConcurrentHashMap</code>
+<ul>
+<li>Java 7: Dùng <code>Segment Locking</code>. Map chia thành nhiều segment (mảng nhỏ), mỗi segment quản lý một phần dữ liệu</li>
+<li>Java 8+
+<ul>
+<li>Sử dụng Node-level Locking + CAS (Compare-And-Swap)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Null value
+<ul>
+<li><code>HashMap</code> cho phép 1 null key và nhiều null value.</li>
+<li><code>ConcurrentHashMap</code> không cho phép null key, null value.</li>
+</ul>
+</li>
+<li>Sử dụng
+<ul>
+<li><code>HashMap</code> trong môi trường đơn luồng và cần hiệu suất tối ưu</li>
+<li><code>ConcurrentHashMap</code> khi cần thread-safety trong môi trường đa luồng</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>So sánh <code>ArrayList</code> và <code>LinkedList</code>.</li>
+</ol>
+<ul>
+<li><code>ArrayList</code>
+<ul>
+<li>Dùng mảng động (dynamic array) bên trong.</li>
+<li>Các phần tử được lưu trữ liền kề nhau trong bộ nhớ.</li>
+<li>Khi đầy sẽ cấp phát mảng mới và copy lại toàn bộ phần tử.</li>
+<li>Truy cập ngẫu nhiên nhanh.</li>
+<li>Phù hợp khi cần đọc dữ liệu thường xuyên.</li>
+<li>Thêm/xóa ở giữa chậm: O(n) vì phải dịch chuyển các phần tử phía sau.</li>
+<li>Capacity
+<ul>
+<li>Độ dài của mảng bên trong mà <code>ArrayList</code> dùng để lưu phần tử.</li>
+<li>Khi số phần tử thực tế (size) &gt; capacity <code>ArrayList</code> sẽ tự động tăng capacity
+<ul>
+<li>Theo mặc định, mỗi lần tăng thì capacity mới ≈ oldCapacity * 1.5 + 1.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>LinkedList</code>
+<ul>
+<li>Dựa trên danh sách liên kết đôi (doubly linked list).</li>
+<li>Mỗi phần tử (node) chứa dữ liệu và tham chiếu đến node trước/sau.</li>
+<li>Tốt cho các cấu trúc hàng đợi, stack, hoặc thao tác chèn/xóa nhiều.</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>Dependency Injection là gì? Có mấy cách?</li>
+</ol>
+<ul>
+<li>Thường sử dụng để triển khai <code>IoC</code>
+<ul>
+<li><code>Inversion of Control</code> (IoC)
+<ul>
+<li>Thay vì trực tiếp tạo <em>dependency</em> thì sử dụng IoC Container (như Spring) để <em>inject</em> nếu cần</li>
+</ul>
+</li>
+<li>Các <em>dependency</em> không được tạo bên trong đối tượng</li>
+<li>Inject dependencies từ bên ngoài thông qua Constructor, Setter, Interface</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>Bean lifecycle trong Spring?</li>
+<li>Cách hoạt động của <code>HashMap</code>, <code>HashSet</code></li>
+</ol>
+<ul>
+<li><code>HashMap</code>
+<ul>
+<li>Chứa một mảng (array) các bucket</li>
+<li>Mỗi bucket lưu các Node (cặp key-value)</li>
+<li>Key là duy nhất</li>
+<li>Sử dụng kỹ thuật <code>hashing</code> để lưu trữ và tìm kiếm dữ liệu hiệu quả.</li>
+<li>Khi thêm một cặp key-value vào HashMap
+<ul>
+<li>Sử dụng Hash function chuyển key thành 1 số nguyên (hash code)</li>
+<li>Hash code ánh xạ tới một vị trí (index) trong một mảng bên trong HashMap</li>
+</ul>
+</li>
+<li>Lưu trữ dữ liệu
+<ul>
+<li>Sử dụng một mảng các bucket để lưu trữ dữ liệu.</li>
+<li>Khi bạn thêm một cặp key-value:
+<ul>
+<li>Key được băm để tìm bucket tương ứng.</li>
+<li>Nếu bucket trống, cặp key-value được lưu trực tiếp.</li>
+<li>Nếu bucket đã có dữ liệu (va chạm), HashMap sử dụng danh sách liên kết (linked list) hoặc cây đỏ đen(red-black tree) để xử lý</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Truy xuất dữ liêu
+<ul>
+<li>HashMap băm key để tìm bucket.</li>
+<li>Nếu bucket có nhiều cặp key-value (do va chạm), nó sẽ so sánh key bạn cung cấp với các key trong bucket để tìm đúng giá trị.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>HashSet</code>
+<ul>
+<li>Chỉ lưu giá trị không lưu key-value</li>
+<li>Mỗi phần tử bạn thêm vào <code>HashSet</code> sẽ được lưu dưới dạng
+<ul>
+<li><code>key</code> của <code>HashMap</code></li>
+<li><code>value</code> là một object hằng số (thường là <code>PRESENT</code>)</li>
+</ul>
+</li>
+<li>Không cho phép trùng lặp dựa <code>hashCode()</code> và <code>equals()</code> để kiểm tra.</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>Lambda expression trong Java hoạt động ra sao?</li>
+</ol>
+<ul>
+<li>
+<p>Lambda expression được dùng để triển khai một <code>Functional interface</code></p>
+<ul>
+<li><code>Functional interface</code> là 1 interface chỉ chứa 1 <code>abstract method</code> - Single Abstract Method (SAM)
+<ul>
+<li>Được đánh dấu bằng annotation <code>@FunctionalInterface</code></li>
+<li><code>abstract method</code> - không có thân hàm</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-meta">@FunctionalInterface</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Hello</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LambdaExpression</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+    Hello s = () -&gt; {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello Lambda."</span>;
+    };
+    System.out.println(s.sayHello());
+  }
+}
+</div></code></pre>
+</li>
+</ul>
+<ol start="8">
+<li>Khi nào dùng MongoDB thay vì MySQL?</li>
+<li>Index hoạt động như thế nào? Khi nào nên dùng?</li>
+<li>So sánh JOIN và Subquery.</li>
+</ol>
+
+</body>
+</html>
