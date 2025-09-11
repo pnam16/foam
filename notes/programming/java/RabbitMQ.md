@@ -22,3 +22,6 @@
     - Không quan tâm routing key
     - Routing dựa trên cặp key-value trong header của message
     - Ví dụ: header {format: "pdf", type: "report"}, queue bind với {format=pdf, type=report} → match
+- Binding
+  - Là quy tắc nối giữa Exchange và Queue
+  - Binding key: giá trị dùng để so sánh với routing key hoặc header
