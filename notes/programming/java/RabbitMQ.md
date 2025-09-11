@@ -25,3 +25,11 @@
 - Binding
   - Là quy tắc nối giữa Exchange và Queue
   - Binding key: giá trị dùng để so sánh với routing key hoặc header
+
+4. Cơ chế hoạt động
+
+Producer gửi message đến exchange.
+
+Exchange dựa trên routing key + binding để phân phối message đến queue.
+
+Consumer lắng nghe queue để xử lý message.
