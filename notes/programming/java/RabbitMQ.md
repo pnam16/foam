@@ -33,5 +33,3 @@ Producer gửi message đến exchange.
 Exchange dựa trên routing key + binding để phân phối message đến queue.
 
 Consumer lắng nghe queue để xử lý message.
-
-
