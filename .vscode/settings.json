@@ -1,6 +1,6 @@
 {
   "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -30,7 +30,4 @@
   "markdown.styles": [
     ".vscode/custom-tag-style.css"
   ],
-  "cSpell.words": [
-    "Wyckoff"
-  ]
 }
