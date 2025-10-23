@@ -26,5 +26,13 @@
   "gitdoc.autoCommitDelay": 30000,
   "gitdoc.enabled": true,
   "gitdoc.timeZone": "Asia/Ho_Chi_Minh",
-  "markdown.styles": [".vscode/custom-tag-style.css"]
+  "markdown.styles": [".vscode/custom-tag-style.css"],
+  "cSpell.words": [
+    "Jibri",
+    "jitsi",
+    "macrotask",
+    "Microtask",
+    "pgsql",
+    "unmute"
+  ]
 }
