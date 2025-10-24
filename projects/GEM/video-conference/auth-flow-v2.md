@@ -46,13 +46,10 @@ sequenceDiagram
   M-->>U: Detect existing session → skip login
 
   F->>B: POST /api/auth/login
-  Note over F,B: Header: Authorization: Bearer {ms_token}
+  Note over F,B: Has ms_token at header
 
-  B->>B: Verify ms_token
-  B->>B: Generate app Jitsi JWT (jitsi-token)
-  B-->>F: 200 { appToken, userInfo }
-  F->>F: Save appToken (localStorage) + giữ MSAL cache
-  F-->>U: Đăng nhập xong → Join Jitsi meeting
+  B-->>F: Generated Jitsi JWT (jitsi-token)
+  F-->>U: User logged in → Join Jitsi meeting
 ```
 
 ### Trường hợp 2: User đã có JWT hợp lệ
