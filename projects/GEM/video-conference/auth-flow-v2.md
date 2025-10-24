@@ -35,23 +35,14 @@
 
 ```mermaid
 sequenceDiagram
-    participant U as 👤 User
-    participant F as 🌐 Frontend (MSAL)
-    participant M as ☁️ Microsoft (Entra ID)
-    participant B as 🖥️ Backend (API)
-    participant DB as 🗄️ Database
+  participant U as User
+  participant F as FE
+  participant M as Microsoft (Entra ID)
+  participant B as BE
+  participant DB as Database
 
   U->>F: Click "Login with Microsoft"
   F->>M: MSAL login (PKCE) → /authorize
-  alt User đã có session Microsoft
-      M-->>F: 302 + code (SSO, không nhập mật khẩu)
-  else Chưa có session
-      M-->>U: Hiện UI đăng nhập/consent
-      U->>M: Nhập tài khoản / cho phép
-      M-->>F: 302 + code
-  end
-  F->>M: MSAL exchange code → id_token (+access_token nếu cần Graph)
-  F->>F: MSAL cache tokens (silent ready)
 
   F->>B: POST /api/auth/exchange
   Note over F,B: Body: { id_token, access_token? }<br/>Hoặc Header: Authorization: Bearer {id_token}
@@ -66,7 +57,6 @@ sequenceDiagram
   B-->>F: 200 { appToken, userInfo }
   F->>F: Save appToken (localStorage) + giữ MSAL cache
   F-->>U: Đăng nhập xong → Join Jitsi meeting
-
 ```
 
 ### Trường hợp 2: User đã có JWT hợp lệ
