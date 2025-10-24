@@ -40,8 +40,8 @@ flow
 ```mermaid
 sequenceDiagram
     participant U as 👤 User
-    participant F as 🌐 Frontend
-    participant B as 🖥️ Backend
+    participant F as 🌐 FE
+    participant B as 🖥️ BE
     participant M as ☁️ Microsoft Login (Entra ID)
 
     U->>F: Click "Login with Teams"
