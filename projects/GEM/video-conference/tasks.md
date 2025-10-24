@@ -29,8 +29,7 @@ Backend xác thực → Generate session/JWT → User join Jitsi meeting
 - Vào "Authentication"
 - Thêm "Platform" → "Web"
 - Add Redirect URIs:
-  - `https://yourdomain.com/api/auth/callback`
-  - `http://localhost:3000/api/auth/callback` (dev)
+  - `https://yourdomain.com/api/auth/callback` - `http://localhost:3000/api/auth/callback` (dev)
 - Enable "ID tokens" và "Access tokens"
 
 ### 1.4 Cấu hình API Permissions
