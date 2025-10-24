@@ -39,21 +39,17 @@ sequenceDiagram
   participant F as FE
   participant M as Microsoft (Entra ID)
   participant B as BE
-  participant DB as Database
 
   U->>F: Click "Login with Microsoft"
-  F->>M: MSAL login (PKCE) → /authorize
+  F->>M: Request Microsoft Login
+  M->>F: MS token
+  M-->>U: Detect existing session → skip login
 
-  F->>B: POST /api/auth/exchange
-  Note over F,B: Body: { id_token, access_token? }<br/>Hoặc Header: Authorization: Bearer {id_token}
+  F->>B: POST /api/auth/login
+  Note over F,B: Header: Authorization: Bearer {ms_token}
 
-  B->>B: Verify id_token (signature, iss, aud, exp, tid)
-  alt access_token được gửi kèm
-      B->>M: (optional) OBO exchange / token introspection<br/>hoặc call Graph để verify
-  end
-  B->>DB: Upsert user (by oid/objectId or preferred_username)
-  DB-->>B: OK
-  B->>B: Generate app JWT (jitsi-token)
+  B->>B: Verify ms_token
+  B->>B: Generate app Jitsi JWT (jitsi-token)
   B-->>F: 200 { appToken, userInfo }
   F->>F: Save appToken (localStorage) + giữ MSAL cache
   F-->>U: Đăng nhập xong → Join Jitsi meeting
