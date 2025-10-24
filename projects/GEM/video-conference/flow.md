@@ -92,6 +92,29 @@ sequenceDiagram
 
 ### Trường hợp 2: User đã có JWT hợp lệ
 
+```mermaid
+sequenceDiagram
+    participant U as 👤 User
+    participant F as 🌐 Frontend
+    participant B as 🖥️ Backend
+
+    U->>F: Access web app
+    F->>F: Check localStorage for token
+    alt Token exists
+        F->>B: GET /api/auth/me (Authorization: Bearer token)
+        alt Token valid
+            B-->>F: Return user info ✅
+            F->>U: User logged in → Join Jitsi meeting
+        else Token expired
+            B-->>F: 401 Unauthorized ❌
+            F->>F: Clear token → redirect login
+        end
+    else No token
+        F->>U: Redirect to login page
+    end
+
+```
+
 ```
 ┌────────────────────────────┐
 │ User open web application  │
