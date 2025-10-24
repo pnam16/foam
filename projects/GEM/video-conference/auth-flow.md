@@ -37,8 +37,8 @@
 sequenceDiagram
   participant U as 👤 User
   participant F as 🌐 Frontend
-  participant B as 🖥️ Backend
   participant M as ☁️ Microsoft Login (Entra ID)
+  participant B as 🖥️ Backend
 
   U->>F: Click "Login with Teams"
   F->>B: GET /api/auth/login
