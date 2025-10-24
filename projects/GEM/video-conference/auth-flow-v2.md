@@ -31,6 +31,25 @@
    └───────────────────────┘            └─────────────────────┘
 ```
 
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant F as FE
+  participant M as Microsoft (Entra ID)
+  participant B as BE
+
+  U->>F: Click "Login with Microsoft"
+  F->>M: Request Microsoft Login
+  M->>F: MS token
+  M-->>U: Detect existing session → skip login
+
+  F->>B: POST /api/auth/login
+  Note over F,B: Has ms_token at header
+
+  B-->>F: Generated Jitsi JWT (jitsi-token)
+  F-->>U: User logged in → Join Jitsi meeting
+```
+
 ### Trường hợp A — FE login bằng MSAL rồi đổi sang jitsi-token
 
 ```mermaid
