@@ -55,22 +55,22 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant U as 👤 User
-    participant F as 🌐 Frontend
-    participant B as 🖥️ Backend
-    participant M as ☁️ Microsoft Login (Entra ID)
+  participant U as 👤 User
+  participant F as 🌐 Frontend
+  participant B as 🖥️ Backend
+  participant M as ☁️ Microsoft Login (Entra ID)
 
-    U->>F: Click "Login with Teams"
-    F->>B: GET /api/auth/login
-    B-->>U: Redirect → login.microsoftonline.com
-    U->>M: Request Microsoft Login
-    M-->>U: Detect existing session → skip login
-    M-->>B: Redirect /api/auth/callback?code=xxx&state=yyy
-    B->>M: Exchange code → access_token, id_token
-    B->>B: Handle logic
-    B->>F: Redirect with app JWT token
-    F->>F: Save token (localStorage)
-    F->>U: User logged in → Join Jitsi meeting
+  U->>F: Click "Login with Teams"
+  F->>B: GET /api/auth/login
+  B-->>U: Redirect → login.microsoftonline.com
+  U->>M: Request Microsoft Login
+  M-->>U: Detect existing session → skip login
+  M-->>B: Redirect /api/auth/callback?code=xxx&state=yyy
+  B->>M: Exchange code → access_token, id_token
+  B->>B: Handle logic
+  B->>F: Redirect with app JWT token
+  F->>F: Save token (localStorage)
+  F->>U: User logged in → Join Jitsi meeting
 ```
 
 ```
@@ -106,7 +106,7 @@ sequenceDiagram
 ┌───────────────────────────────┐
 │ Redirect Frontend with token  │
 │ Save token → localStorage     │
-│ User logged in (1–2s total)   │
+│ User logged in                │
 └───────────────────────────────┘
 ```
 
@@ -132,7 +132,6 @@ sequenceDiagram
   else No token
       F->>U: Redirect to login page
   end
-
 ```
 
 ```
