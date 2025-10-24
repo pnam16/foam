@@ -67,16 +67,10 @@ sequenceDiagram
     M-->>U: Detect existing session → skip login
     M-->>B: Redirect /api/auth/callback?code=xxx&state=yyy
     B->>M: Exchange code → access_token, id_token
-    B->>B: Check user in database
-    alt User exists
-        B->>B: UPDATE last_login
-    else New user
-        B->>B: INSERT new user
-    end
+    B->>B: Handle logic
     B->>F: Redirect with app JWT token
     F->>F: Save token (localStorage)
     F->>U: User logged in → Join Jitsi meeting
-
 ```
 
 ```
