@@ -394,24 +394,6 @@ code {
    │ → Join meeting        │            │ → Redirect login    │
    └───────────────────────┘            └─────────────────────┘
 </div></code></pre>
-<pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
-    participant U as 👤 User
-    participant F as 🌐 FE
-    participant B as 🖥️ BE
-    participant M as ☁️ Microsoft Login (Entra ID)
-
-    U->>F: Click "Login with Teams"
-    F->>B: GET /api/auth/login
-    B-->>U: Redirect → login.microsoftonline.com
-    U->>M: Request Microsoft Login
-    M-->>U: Detect existing session → skip login
-    M-->>B: Redirect /api/auth/callback?code=xxx&state=yyy
-    B->>M: Exchange code → access_token, id_token
-    B->>B: Handle logic
-    B->>F: Redirect Jitsi JWT token
-    F->>F: Save token (localStorage)
-    F->>U: User logged in → Join Jitsi meeting
-</div></code></pre>
 <h3 id="tr%C6%B0%E1%BB%9Dng-h%E1%BB%A3p-1-user-ch%C6%B0a-%C4%91%C4%83ng-nh%E1%BA%ADp-app-login-with-teams">Trường hợp 1: User chưa đăng nhập app (Login with Teams)</h3>
 <pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
   participant U as 👤 User
@@ -430,41 +412,6 @@ code {
   B->>F: Redirect with app JWT token
   F->>F: Save token (localStorage)
   F->>U: User logged in → Join Jitsi meeting
-</div></code></pre>
-<pre class="hljs"><code><div>┌──────────────────────────┐
-│ User click &quot;Login Teams&quot; │
-└─────────────┬────────────┘
-              │
-              ▼
-┌──────────────────────────────┐
-│ Backend redirect to Microsoft│
-│ login.microsoftonline.com    │
-└─────────────┬────────────────┘
-              │
-              ▼
-┌────────────────────────────────────┐
-│ Microsoft detect valid session     │
-│ → Skip login screen (SSO)          │
-└─────────────┬──────────────────────┘
-              │
-              ▼
-┌───────────────────────────────────────────────┐
-│ Redirect back /api/auth/callback?code=xxx     │
-└─────────────┬─────────────────────────────────┘
-              │
-              ▼
-┌───────────────────────────────────────┐
-│ Backend exchange code → access_token  │
-│ Check DB → Insert/Update user         │
-│ Generate app JWT                      │
-└─────────────┬─────────────────────────┘
-              │
-              ▼
-┌───────────────────────────────┐
-│ Redirect Frontend with token  │
-│ Save token → localStorage     │
-│ User logged in                │
-└───────────────────────────────┘
 </div></code></pre>
 <h3 id="tr%C6%B0%E1%BB%9Dng-h%E1%BB%A3p-2-user-%C4%91%C3%A3-c%C3%B3-jwt-h%E1%BB%A3p-l%E1%BB%87">Trường hợp 2: User đã có JWT hợp lệ</h3>
 <pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
