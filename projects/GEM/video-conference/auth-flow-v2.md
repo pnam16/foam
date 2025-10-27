@@ -59,7 +59,6 @@ sequenceDiagram
   B->>M: Validate token with Microsoft
   M-->>B: Token validation response
   B->>B: Extract user info from token
-  B->>B: Create/update user in database
   B->>B: Generate app JWT token
   B-->>F: Return { appToken: "xxx", user: {...} }
   F->>F: Store appToken in localStorage
