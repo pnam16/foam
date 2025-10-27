@@ -23,21 +23,19 @@
   ↓
 6. Frontend lưu appToken vào localStorage
   ↓
-7. User muốn join meeting
-  ↓
-8. **Frontend gọi API tạo Jitsi token**
+7. **Frontend gọi API tạo Jitsi token**
   POST /api/jitsi/token
   Headers: Authorization: Bearer {appToken}
   Body: { roomName: "meeting-123" }
   ↓
-9. Backend:
+8. Backend:
   - Verify appToken
   - Generate Jitsi JWT token
   - Return: { jitsiToken: "xxx", domain: "meet.jit.si" }
   ↓
-10. Frontend khởi tạo Jitsi với token
+9. Frontend khởi tạo Jitsi với token
   ↓
-11. User join meeting thành công
+10. User join meeting thành công
 ```
 
 ## Detailed Authentication Flow
